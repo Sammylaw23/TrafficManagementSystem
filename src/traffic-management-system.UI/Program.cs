@@ -1,17 +1,21 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using traffic_management_system.Infrastructure;
+using traffic_management_system.Infrastructure.DbContexts;
 using traffic_management_system.UI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddDbContext<TrafficManagementSystemDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+//builder.Services.AddDefaultIdentity<AyotPortalUser,IdentityRole>
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<TrafficManagementSystemDbContext>();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
