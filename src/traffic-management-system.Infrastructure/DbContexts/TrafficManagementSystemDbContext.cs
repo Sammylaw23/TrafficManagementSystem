@@ -17,7 +17,7 @@ namespace traffic_management_system.Infrastructure.DbContexts
         {
         }
         public DbSet<Driver> Drivers { get; set; }
-        public DbSet<Offence_Type> Offence_Types { get; set; }
+        public DbSet<OffenceType> Offence_Types { get; set; }
         public DbSet<Offence> Offences { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
 
