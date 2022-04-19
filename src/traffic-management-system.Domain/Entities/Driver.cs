@@ -8,8 +8,9 @@ namespace traffic_management_system.Domain.Entities
 {
     public class Driver
     {
-        public string Name { get; set; }
-        public DateTimeOffset DOB { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTimeOffset DateOfBirth { get; set; }
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }

@@ -8,7 +8,7 @@ namespace traffic_management_system.Domain.Entities
 {
     public class Vehicle
     {
-        public string Name { get; set; }
+        public string Name { get; set; }       
         public string Model { get; set; }
         public string Type { get; set; }
         public string Colour { get; set; }

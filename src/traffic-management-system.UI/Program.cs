@@ -12,9 +12,8 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddDbContext<TrafficManagementSystemDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-//services.AddIdentity<AyotPortalUser, IdentityRole>()
-//               .AddEntityFrameworkStores<TrafficManagementSystemDbContext>()
-//               .AddDefaultTokenProviders();
+
+//builder.Services.AddDefaultIdentity<AyotPortalUser,IdentityRole>
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<TrafficManagementSystemDbContext>();
 builder.Services.AddRazorPages();
