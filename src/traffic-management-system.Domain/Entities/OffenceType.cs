@@ -8,10 +8,10 @@ namespace traffic_management_system.Domain.Entities
 {
     public class OffenceType
     {
-        public string Name { get; set; }
-        public string Code { get; set; }
+        public string? Name { get; set; }
+        public string? Code { get; set; }
         public Int16 Point { get; set; }
-        public string Category { get; set; }
+        public string? Category { get; set; }
         public decimal FineAmount { get; set; }
 
     }

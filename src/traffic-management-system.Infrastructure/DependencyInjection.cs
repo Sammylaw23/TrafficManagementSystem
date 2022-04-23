@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using traffic_management_system.Application.Interfaces;
+using traffic_management_system.Application.Interfaces.Services;
+using traffic_management_system.Application.Services;
 using traffic_management_system.Infrastructure.DbContexts;
 using traffic_management_system.Infrastructure.Persistence;
 
@@ -25,6 +27,8 @@ namespace traffic_management_system.Infrastructure
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<TrafficManagementSystemDbContext>());
             services.AddScoped<IRepositoryProvider, RepositoryProvider>();
+            services.AddScoped<IDriverService, DriverService>();
+
 
         }
     }

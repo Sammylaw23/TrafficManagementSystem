@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace traffic_management_system.Domain.Entities
+namespace traffic_management_system.Application.DTOs.Driver
 {
-    public class User
+    public class NewDriverRequest
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
@@ -14,7 +14,7 @@ namespace traffic_management_system.Domain.Entities
         public string? Address { get; set; }
         public string? PhoneNumber { get; set; }
         public string? Email { get; set; }
+        public string? LicenseNo { get; set; }
         public char Gender { get; set; }
-
     }
 }
