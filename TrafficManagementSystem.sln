@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "traffic-management-system.I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "traffic-management-system.UI", "src\traffic-management-system.UI\traffic-management-system.UI.csproj", "{75A87D0F-DA5E-4393-BAD0-CA422300583B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "traffic-management-system.Application", "traffic-management-system.Application\traffic-management-system.Application.csproj", "{4512FADA-C510-4BBC-BCBD-EA27DEEB60AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrafficManagementSystem.Application", "traffic-management-system.Application\TrafficManagementSystem.Application.csproj", "{4512FADA-C510-4BBC-BCBD-EA27DEEB60AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficManagementSystem.API", "src\TrafficManagementSystem.API\TrafficManagementSystem.API.csproj", "{DF0C69DD-DFB3-4BA6-A7CA-A53B24FEE4AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrafficManagementSystem.API", "src\TrafficManagementSystem.API\TrafficManagementSystem.API.csproj", "{DF0C69DD-DFB3-4BA6-A7CA-A53B24FEE4AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

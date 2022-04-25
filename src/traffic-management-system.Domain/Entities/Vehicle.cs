@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace traffic_management_system.Domain.Entities
 {
-    public class Vehicle
+    public class Vehicle : BaseEntity
     {
         public string? Name { get; set; }       
         public string? Model { get; set; }

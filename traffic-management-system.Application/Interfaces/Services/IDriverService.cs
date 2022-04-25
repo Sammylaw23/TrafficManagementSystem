@@ -10,6 +10,6 @@ namespace traffic_management_system.Application.Interfaces.Services
 {
     public interface IDriverService
     {
-       Task AddDriverAsync(NewDriverRequest request);
+       Task<DriverDto> AddDriverAsync(NewDriverRequest request);
     }
 }

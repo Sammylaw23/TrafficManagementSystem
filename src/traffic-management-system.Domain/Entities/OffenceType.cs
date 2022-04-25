@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace traffic_management_system.Domain.Entities
 {
-    public class OffenceType
+    public class OffenceType : BaseEntity
     {
         public string? Name { get; set; }
         public string? Code { get; set; }

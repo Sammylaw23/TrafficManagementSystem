@@ -10,7 +10,7 @@ using traffic_management_system.Domain.Entities;
 
 namespace traffic_management_system.Infrastructure.DbContexts
 {
-    public class TrafficManagementSystemDbContext : IdentityDbContext, IApplicationDbContext
+    public class TrafficManagementSystemDbContext : DbContext, /*IdentityDbContext,*/ IApplicationDbContext
     {
         public TrafficManagementSystemDbContext(DbContextOptions<TrafficManagementSystemDbContext> options) 
             : base(options)

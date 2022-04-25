@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\traffic-management-system.Application\traffic-management-system.Application.csproj" />
+    <ProjectReference Include="..\..\traffic-management-system.Application\TrafficManagementSystem.Application.csproj" />
     <ProjectReference Include="..\traffic-management-system.Domain\traffic-management-system.Domain.csproj" />
   </ItemGroup>
 

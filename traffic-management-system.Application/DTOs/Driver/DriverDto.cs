@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace traffic_management_system.Application.DTOs.Driver
+namespace TrafficManagementSystem.Application.DTOs.Driver
 {
     public class DriverDto
     {        

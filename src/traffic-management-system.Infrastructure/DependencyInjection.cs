@@ -20,10 +20,21 @@ namespace traffic_management_system.Infrastructure
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             //var connectionString = configuration.GetConnectionString("ApplicationDbConnectionString");
-            services.AddDbContext<TrafficManagementSystemDbContext>(
-               options => options.UseSqlite(connectionString,
-               x => x.MigrationsAssembly(typeof(TrafficManagementSystemDbContext).Assembly.FullName)));
-            
+
+            var UseSQLLite = configuration.GetSection("Settings:UseSQLLiteForMigration").Value;
+            var UseSQLLiteBoolean = bool.Parse(UseSQLLite);
+            if (UseSQLLiteBoolean)
+            {
+                services.AddDbContext<TrafficManagementSystemDbContext>(
+                   options => options.UseSqlite(connectionString,
+                   x => x.MigrationsAssembly(typeof(TrafficManagementSystemDbContext).Assembly.FullName)));
+            }
+            else
+            {
+                services.AddDbContext<TrafficManagementSystemDbContext>(
+                    options => options.UseSqlServer(connectionString,
+                    x => x.MigrationsAssembly(typeof(TrafficManagementSystemDbContext).Assembly.FullName)));
+            }
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<TrafficManagementSystemDbContext>());
             services.AddScoped<IRepositoryProvider, RepositoryProvider>();

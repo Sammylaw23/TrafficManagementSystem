@@ -18,7 +18,7 @@ namespace traffic_management_system.Application.Services
         {
             _repositoryProvider = repositoryProvider;
         }
-        public async Task AddDriverAsync(NewDriverRequest request)
+        public async Task<DriverDto> AddDriverAsync(NewDriverRequest request)
         {
             var dbDriver = await _repositoryProvider.DriverRepository.GetDriverByLicenseNoAsync(request.LicenseNo);
             if (dbDriver != null)
@@ -33,6 +33,15 @@ namespace traffic_management_system.Application.Services
                 Address = request.Address
             };
             await _repositoryProvider.DriverRepository.AddDriverAsync(driver);
+            await _repositoryProvider.SaveChangesAsync();
+            var driverDto = new DriverDto()
+            {
+                Id = driver.Id,
+                FirstName = driver.FirstName,
+                LastName = driver.LastName,
+                Address = driver.Address
+            };
+            return driverDto;
         }
     }
 }
