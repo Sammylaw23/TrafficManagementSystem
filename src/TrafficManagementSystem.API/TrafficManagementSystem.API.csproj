@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\traffic-management-system.Application\TrafficManagementSystem.Application.csproj" />
-    <ProjectReference Include="..\traffic-management-system.Infrastructure\traffic-management-system.Infrastructure.csproj" />
+    <ProjectReference Include="..\TrafficManagementSystem.Application\TrafficManagementSystem.Application.csproj" />
+    <ProjectReference Include="..\TrafficManagementSystem.Infrastructure\TrafficManagementSystem.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

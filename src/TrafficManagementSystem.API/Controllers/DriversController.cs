@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using traffic_management_system.Application.DTOs.Driver;
-using traffic_management_system.Application.Interfaces.Services;
-using traffic_management_system.Application.Services;
+using TrafficManagementSystem.Application.DTOs.Driver;
+using TrafficManagementSystem.Application.Interfaces.Services;
+using TrafficManagementSystem.Application.Services;
 
 namespace TrafficManagementSystem.API.Controllers
 {

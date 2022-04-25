@@ -1,8 +1,8 @@
-using traffic_management_system.Application.Interfaces;
-using traffic_management_system.Application.Interfaces.Services;
-using traffic_management_system.Application.Services;
-using traffic_management_system.Infrastructure;
-using traffic_management_system.Infrastructure.Persistence;
+using TrafficManagementSystem.Application.Interfaces;
+using TrafficManagementSystem.Application.Interfaces.Services;
+using TrafficManagementSystem.Application.Services;
+using TrafficManagementSystem.Infrastructure;
+using TrafficManagementSystem.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
