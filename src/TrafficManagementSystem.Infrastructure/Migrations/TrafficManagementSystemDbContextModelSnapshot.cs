@@ -64,10 +64,13 @@ namespace TrafficManagementSystem.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LicenseNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OffenceTypeCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("OffenceTypeId")
@@ -99,8 +102,12 @@ namespace TrafficManagementSystem.Infrastructure.Migrations
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("DateCreated")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<decimal>("FineAmount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 3)
+                        .HasColumnType("decimal(18,3)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -110,7 +117,7 @@ namespace TrafficManagementSystem.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Offence_Types");
+                    b.ToTable("OffenceTypes");
                 });
 
             modelBuilder.Entity("TrafficManagementSystem.Domain.Entities.Vehicle", b =>

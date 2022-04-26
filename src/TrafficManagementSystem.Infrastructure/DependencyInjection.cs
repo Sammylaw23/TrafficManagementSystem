@@ -10,6 +10,7 @@ using TrafficManagementSystem.Application.Interfaces;
 using TrafficManagementSystem.Application.Interfaces.Services;
 using TrafficManagementSystem.Application.Services;
 using TrafficManagementSystem.Infrastructure.DbContexts;
+using TrafficManagementSystem.Infrastructure.Identity;
 using TrafficManagementSystem.Infrastructure.Persistence;
 
 namespace TrafficManagementSystem.Infrastructure
@@ -36,9 +37,12 @@ namespace TrafficManagementSystem.Infrastructure
                     x => x.MigrationsAssembly(typeof(TrafficManagementSystemDbContext).Assembly.FullName)));
             }
 
+            services.AddDbContext<AppIdentityDbContext>(
+                options => options.UseSqlite(configuration.GetConnectionString("IdentityConnection")));
+
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<TrafficManagementSystemDbContext>());
+
             services.AddScoped<IRepositoryProvider, RepositoryProvider>();
-            services.AddScoped<IDriverService, DriverService>();
 
 
         }

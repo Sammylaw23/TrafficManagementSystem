@@ -1,0 +1,75 @@
+﻿using AutoMapper;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TrafficManagementSystem.Application.DTOs.Offence;
+using TrafficManagementSystem.Application.Exceptions;
+using TrafficManagementSystem.Application.Interfaces;
+using TrafficManagementSystem.Application.Interfaces.Services;
+using TrafficManagementSystem.Application.Wrappers;
+using TrafficManagementSystem.Domain.Entities;
+
+namespace TrafficManagementSystem.Application.Services
+{
+    public class OffenceService : IOffenceService
+    {
+        private readonly IRepositoryProvider _repositoryProvider;
+        private readonly IMapper _mapper;
+
+        public OffenceService(IRepositoryProvider repositoryProvider, IMapper mapper)
+        {
+            _repositoryProvider = repositoryProvider;
+            _mapper = mapper;
+        }
+        public async Task<Response<OffenceDto>> AddOffenceAsync(NewOffenceRequest request)
+        {
+            //TODO: Rethink this logic so that the same offence will not be entered twice and so that two 
+            //different offences will not be seen as the same offence
+            //var offenceType = await _repositoryProvider.OffenceRepository.GetOffenceByIdAsync(request.LicenseNo);
+            var offence = await _repositoryProvider.OffenceRepository.GetOffenceByLicenseNumberAsync(request.LicenseNo);
+            if (offence != null)
+                throw new ApiException($"Offence already exist!");
+            var offenceType = await _repositoryProvider.OffenceTypeRepository.GetOffenceTypeByCodeAsync(request.OffenceTypeCode);
+            if (offenceType == null)
+                throw new NotFoundException($"OffenceTypeCode does not exist!");
+
+            //check if license is valid on Drivers table
+
+            //check if plateNumber is valid on Vehicles table
+
+
+
+            offence = _mapper.Map<Offence>(request);
+            offence.CreatedBy = "Olopa"; //TODO: From user logged on
+
+            await _repositoryProvider.OffenceRepository.AddOffenceAsync(offence);
+            await _repositoryProvider.SaveChangesAsync();
+            return new Response<OffenceDto>(_mapper.Map<OffenceDto>(offence));
+        }
+
+        public async Task DeleteOffenceAsync(Guid id)
+        {
+            var offence = await _repositoryProvider.OffenceRepository.GetOffenceByIdAsync(id);
+            if (offence == null)
+                throw new NotFoundException("Offence not found!");
+            _repositoryProvider.OffenceRepository.DeleteOffence(offence);
+            await _repositoryProvider.SaveChangesAsync();
+        }
+
+        public async Task<Response<IEnumerable<OffenceDto>>> GetAllOffences()
+        {
+            var offence = await _repositoryProvider.OffenceRepository.GetOffencesAsync();
+            return new Response<IEnumerable<OffenceDto>>(_mapper.Map<IEnumerable<OffenceDto>>(offence));
+        }
+
+        public async Task<Response<OffenceDto>> GetOffenceById(Guid id)
+        {
+            var offence = await _repositoryProvider.OffenceRepository.GetOffenceByIdAsync(id);
+            return offence == null ? throw new NotFoundException() : new Response<OffenceDto>(_mapper.Map<OffenceDto>(offence));
+        }
+
+        
+    }
+}

@@ -11,7 +11,12 @@ namespace TrafficManagementSystem.Application.Interfaces.Repositories
     {
         Task AddOffenceAsync(Offence offence);
         void UpdateOffence(Offence offence);
-        Task<Offence> GetOffenceAsync(Guid id);
+        Task<Offence> GetOffenceByIdAsync(Guid id);
         Task<IEnumerable<Offence>> GetOffencesAsync();
+        void DeleteOffence(Offence offence);
+        Task<Offence> GetOffenceByLicenseNumberAsync(string licenseNo);
+
+       
+
     }
 }

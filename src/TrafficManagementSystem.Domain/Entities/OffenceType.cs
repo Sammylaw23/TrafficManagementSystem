@@ -13,6 +13,8 @@ namespace TrafficManagementSystem.Domain.Entities
         public Int16 Point { get; set; }
         public string? Category { get; set; }
         public decimal FineAmount { get; set; }
+        public DateTimeOffset DateCreated { get; set; }
+
 
     }
 }

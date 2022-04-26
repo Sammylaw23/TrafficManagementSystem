@@ -11,9 +11,11 @@ namespace TrafficManagementSystem.Application.Interfaces.Repositories
     {
         Task AddDriverAsync(Driver driver);
         void UpdateDriver(Driver driver);
-        Task<Driver> GetDriverAsync(Guid id);
+        Task<Driver> GetDriverByIdAsync(Guid id);
         Task<IEnumerable<Driver>> GetDriversAsync();
         Task<Driver> GetDriverByLicenseNoAsync(string licenseNo);
+        void DeleteDriver(Driver driver);
+        
 
     }
 }

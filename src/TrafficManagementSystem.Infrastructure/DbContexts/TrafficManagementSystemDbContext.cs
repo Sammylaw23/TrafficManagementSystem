@@ -17,11 +17,17 @@ namespace TrafficManagementSystem.Infrastructure.DbContexts
         {
         }
         public DbSet<Driver> Drivers { get; set; }
-        public DbSet<OffenceType> Offence_Types { get; set; }
+        public DbSet<OffenceType> OffenceTypes { get; set; }
         public DbSet<Offence> Offences { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
 
         //public DbSet<User> Users { get; set; }
 
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            var offenceType = modelBuilder.Entity<OffenceType>();
+            offenceType.Property(x=>x.FineAmount).HasPrecision(18,3);
+        }
     }
 }
