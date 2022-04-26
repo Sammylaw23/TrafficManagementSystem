@@ -28,6 +28,8 @@ namespace TrafficManagementSystem.Infrastructure.DbContexts
         {
             var offenceType = modelBuilder.Entity<OffenceType>();
             offenceType.Property(x=>x.FineAmount).HasPrecision(18,3);
+
+           
         }
     }
 }

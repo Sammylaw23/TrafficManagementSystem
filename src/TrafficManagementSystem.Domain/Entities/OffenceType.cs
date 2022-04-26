@@ -14,7 +14,8 @@ namespace TrafficManagementSystem.Domain.Entities
         public string? Category { get; set; }
         public decimal FineAmount { get; set; }
         public DateTimeOffset DateCreated { get; set; }
+       
 
-
+        
     }
 }

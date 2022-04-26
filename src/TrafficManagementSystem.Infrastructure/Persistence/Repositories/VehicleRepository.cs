@@ -33,7 +33,9 @@ namespace TrafficManagementSystem.Infrastructure.Persistence.Repositories
         public async Task<bool> VehicleExists(Vehicle vehicle) =>
             await _dbContext.Vehicles.AnyAsync(x => x.PlateNumber == vehicle.PlateNumber || x.EngineNumber == vehicle.EngineNumber
             || x.ChassisNo == vehicle.ChassisNo);
-        
+
+        public async Task<bool> PlateNumberIsValid(string plateNumber) => await _dbContext.Vehicles.AnyAsync(x => x.PlateNumber == plateNumber);
+
     }
 }
 

@@ -27,5 +27,8 @@ namespace TrafficManagementSystem.Infrastructure.Persistence.Repositories
 
         public void DeleteDriver(Driver driver) => Delete(driver);
 
+        public async Task<bool> LicenseIsValid(string licenseNumber) => await _dbContext.Drivers.AnyAsync(x => x.LicenseNo == licenseNumber);
+
     }
 }
+

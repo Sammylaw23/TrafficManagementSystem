@@ -73,9 +73,6 @@ namespace TrafficManagementSystem.Infrastructure.Migrations
                     b.Property<string>("OffenceTypeCode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OffenceTypeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("OffenderName")
                         .HasColumnType("nvarchar(max)");
 

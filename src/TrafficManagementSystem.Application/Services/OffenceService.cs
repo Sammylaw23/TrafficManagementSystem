@@ -28,25 +28,33 @@ namespace TrafficManagementSystem.Application.Services
             //TODO: Rethink this logic so that the same offence will not be entered twice and so that two 
             //different offences will not be seen as the same offence
             //var offenceType = await _repositoryProvider.OffenceRepository.GetOffenceByIdAsync(request.LicenseNo);
-            var offence = await _repositoryProvider.OffenceRepository.GetOffenceByLicenseNumberAsync(request.LicenseNo);
-            if (offence != null)
-                throw new ApiException($"Offence already exist!");
+            //var offence = await _repositoryProvider.OffenceRepository.GetOffenceByLicenseNumberAsync(request.LicenseNo); //TODO: This is wrong
+            //if (offence != null)
+            //    throw new ApiException($"Offence already exist!");
             var offenceType = await _repositoryProvider.OffenceTypeRepository.GetOffenceTypeByCodeAsync(request.OffenceTypeCode);
             if (offenceType == null)
                 throw new NotFoundException($"OffenceTypeCode does not exist!");
 
+            var response = new Response<OffenceDto>();
             //check if license is valid on Drivers table
+            var licenseIsValid = await _repositoryProvider.DriverRepository.LicenseIsValid(request.LicenseNo);
+            if (!licenseIsValid)
+                response.Messages.Add($"Invalid license number");
 
             //check if plateNumber is valid on Vehicles table
+            var plateNumberIsValid = await _repositoryProvider.VehicleRepository.PlateNumberIsValid(request.PlateNumber);
+            if (!plateNumberIsValid)
+                response.Messages.Add($"Invalid plate number");
 
-
-
-            offence = _mapper.Map<Offence>(request);
+            var offence = _mapper.Map<Offence>(request);
             offence.CreatedBy = "Olopa"; //TODO: From user logged on
+            //offence.OffenceTypeId = offenceType.Id; //TODO:Revisit this
 
             await _repositoryProvider.OffenceRepository.AddOffenceAsync(offence);
             await _repositoryProvider.SaveChangesAsync();
-            return new Response<OffenceDto>(_mapper.Map<OffenceDto>(offence));
+            response.Data = _mapper.Map<OffenceDto>(offence);
+            response.Succeeded = true;
+            return response;
         }
 
         public async Task DeleteOffenceAsync(Guid id)
@@ -70,6 +78,6 @@ namespace TrafficManagementSystem.Application.Services
             return offence == null ? throw new NotFoundException() : new Response<OffenceDto>(_mapper.Map<OffenceDto>(offence));
         }
 
-        
+
     }
 }

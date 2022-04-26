@@ -15,7 +15,6 @@ namespace TrafficManagementSystem.Application.Interfaces.Repositories
         Task<IEnumerable<Driver>> GetDriversAsync();
         Task<Driver> GetDriverByLicenseNoAsync(string licenseNo);
         void DeleteDriver(Driver driver);
-        
-
+        Task<bool> LicenseIsValid(string licenseNumber);
     }
 }

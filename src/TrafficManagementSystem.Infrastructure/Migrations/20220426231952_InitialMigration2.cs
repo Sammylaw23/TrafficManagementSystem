@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TrafficManagementSystem.Infrastructure.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialMigration2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,7 +29,24 @@ namespace TrafficManagementSystem.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Offence_Types",
+                name: "Offences",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OffenceTypeCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OffenderName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PlateNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LicenseNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ReportDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Offences", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OffenceTypes",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -37,28 +54,12 @@ namespace TrafficManagementSystem.Infrastructure.Migrations
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Point = table.Column<short>(type: "smallint", nullable: false),
                     Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FineAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    FineAmount = table.Column<decimal>(type: "decimal(18,3)", precision: 18, scale: 3, nullable: false),
+                    DateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Offence_Types", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Offences",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OffenceTypeId = table.Column<int>(type: "int", nullable: false),
-                    OffenderName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PlateNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LicenseNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedBy = table.Column<int>(type: "int", nullable: false),
-                    ReportDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Offences", x => x.Id);
+                    table.PrimaryKey("PK_OffenceTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -89,10 +90,10 @@ namespace TrafficManagementSystem.Infrastructure.Migrations
                 name: "Drivers");
 
             migrationBuilder.DropTable(
-                name: "Offence_Types");
+                name: "Offences");
 
             migrationBuilder.DropTable(
-                name: "Offences");
+                name: "OffenceTypes");
 
             migrationBuilder.DropTable(
                 name: "Vehicles");

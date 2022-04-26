@@ -16,9 +16,6 @@ namespace TrafficManagementSystem.Application.Interfaces.Repositories
         void DeleteVehicle(Vehicle vehicle);
         Task<Vehicle> GetVehicleByPlateNumberAsync(string plateNumber);
         Task<bool> VehicleExists(Vehicle vehicle);
-
-        
-
-
+        Task<bool> PlateNumberIsValid(string plateNumber);
     }
 }

@@ -12,8 +12,8 @@ using TrafficManagementSystem.Infrastructure.DbContexts;
 namespace TrafficManagementSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(TrafficManagementSystemDbContext))]
-    [Migration("20220426190659_offenceTypeChange")]
-    partial class offenceTypeChange
+    [Migration("20220426231952_InitialMigration2")]
+    partial class InitialMigration2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -66,14 +66,14 @@ namespace TrafficManagementSystem.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LicenseNo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OffenceTypeId")
-                        .HasColumnType("int");
+                    b.Property<string>("OffenceTypeCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OffenderName")
                         .HasColumnType("nvarchar(max)");
