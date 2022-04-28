@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TrafficManagementSystem.Application.DTOs.Vehicle;
 using TrafficManagementSystem.Application.Interfaces.Services;
 
 namespace TrafficManagementSystem.API.Controllers
 {
+    [Authorize]
     [Route("api/vehicle")]
     [ApiController]
     public class VehiclesController : ControllerBase

@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TrafficManagementSystem.Application.DTOs.Offence;
 using TrafficManagementSystem.Application.Interfaces.Services;
 
 namespace TrafficManagementSystem.API.Controllers
 {
+    [Authorize]
     [Route("api/offences")]
     [ApiController]
     public class OffencesController : ControllerBase

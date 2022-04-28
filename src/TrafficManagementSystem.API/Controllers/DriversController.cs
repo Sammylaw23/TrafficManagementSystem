@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TrafficManagementSystem.Application.DTOs.Driver;
 using TrafficManagementSystem.Application.Interfaces.Services;
@@ -6,6 +7,7 @@ using TrafficManagementSystem.Application.Services;
 
 namespace TrafficManagementSystem.API.Controllers
 {
+    [Authorize]
     [Route("api/drivers")]
     [ApiController]
     public class DriversController : ControllerBase

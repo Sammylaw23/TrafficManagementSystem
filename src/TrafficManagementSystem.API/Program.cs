@@ -22,7 +22,7 @@ var builder = WebApplication.CreateBuilder(args);
 //    options.UseSqlServer(connectionString));
 builder.Services.AddApplicationLayer();
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddIdentityServices();
+builder.Services.AddIdentityServices(builder.Configuration);
 
 
 
