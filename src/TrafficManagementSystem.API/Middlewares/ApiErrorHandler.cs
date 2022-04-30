@@ -52,7 +52,6 @@ namespace TrafficManagementSystem.API.Middlewares
                         response.StatusCode = (int)HttpStatusCode.BadRequest;
                         responseModel.Messages.AddRange(e.Errors);
                         break;
-                    //case KeyNotFoundException kex:
                     case NotFoundException e:
                         responseModel.Messages.Add(e.Message);
                         response.StatusCode = (int)HttpStatusCode.NotFound;
