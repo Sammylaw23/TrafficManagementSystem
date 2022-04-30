@@ -27,9 +27,9 @@ namespace TrafficManagementSystem.Infrastructure
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             //var connectionString = configuration.GetConnectionString("ApplicationDbConnectionString");
 
-            var UseSQLLite = configuration.GetSection("Settings:UseSQLLiteForMigration").Value;
-            var UseSQLLiteBoolean = bool.Parse(UseSQLLite);
-            if (UseSQLLiteBoolean)
+            var useSQLLite = configuration.GetValue<bool>("Settings:UseSQLLiteForMigration");
+            //var useSQLLiteBoolean = bool.Parse(useSQLLite);
+            if (useSQLLite)
             {
                 services.AddDbContext<TrafficManagementSystemDbContext>(
                    options => options.UseSqlite(connectionString,
