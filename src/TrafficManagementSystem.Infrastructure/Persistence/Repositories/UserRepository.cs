@@ -1,16 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TrafficManagementSystem.Application.Interfaces;
 using TrafficManagementSystem.Application.Interfaces.Repositories;
 using TrafficManagementSystem.Domain.Entities;
 
 namespace TrafficManagementSystem.Infrastructure.Persistence.Repositories
 {
-    public class UserRepository: RepositoryBase<User>, IUserRepository
+    public class UserRepository : RepositoryBase<User>, IUserRepository
     {
         public UserRepository(IApplicationDbContext context) : base(context)
         {
