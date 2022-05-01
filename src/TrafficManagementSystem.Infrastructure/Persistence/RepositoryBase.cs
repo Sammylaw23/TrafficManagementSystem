@@ -1,16 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using TrafficManagementSystem.Application.Interfaces;
 using TrafficManagementSystem.Infrastructure.DbContexts;
 
 namespace TrafficManagementSystem.Infrastructure.Persistence
 {
-    public abstract class RepositoryBase<T> where T: class
+    public abstract class RepositoryBase<T> where T : class
     {
         protected readonly TrafficManagementSystemDbContext _dbContext;
 

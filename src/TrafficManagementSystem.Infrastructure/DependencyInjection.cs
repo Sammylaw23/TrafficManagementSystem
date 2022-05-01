@@ -1,21 +1,16 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using TrafficManagementSystem.Application.Interfaces;
-using TrafficManagementSystem.Application.Interfaces.Services;
-using TrafficManagementSystem.Application.Services;
 using TrafficManagementSystem.Application.Wrappers;
 using TrafficManagementSystem.Domain.Settings;
 using TrafficManagementSystem.Infrastructure.DbContexts;
-using TrafficManagementSystem.Infrastructure.Identity;
+using TrafficManagementSystem.Infrastructure.Models;
 using TrafficManagementSystem.Infrastructure.Persistence;
 
 namespace TrafficManagementSystem.Infrastructure
@@ -42,8 +37,9 @@ namespace TrafficManagementSystem.Infrastructure
                     x => x.MigrationsAssembly(typeof(TrafficManagementSystemDbContext).Assembly.FullName)));
             }
 
-            services.AddDbContext<AppIdentityDbContext>(
-                options => options.UseSqlite(configuration.GetConnectionString("IdentityConnection")));
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                         .AddEntityFrameworkStores<TrafficManagementSystemDbContext>()
+                         .AddDefaultTokenProviders();
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<TrafficManagementSystemDbContext>());
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace TrafficManagementSystem.Application.Exceptions
+﻿namespace TrafficManagementSystem.Application.Exceptions
 {
     public class IdentityException : Exception
     {
