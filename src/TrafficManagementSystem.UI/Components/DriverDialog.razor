@@ -1,0 +1,89 @@
+﻿
+<EditForm Model="DriverModel" OnValidSubmit="SubmitAsync">
+    <DataAnnotationsValidator />
+    <MudDialog>
+        <TitleContent>
+            @{
+                if (DriverModel.Id == null)
+                {
+                    <MudText Typo="Typo.h6">
+                        <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1" />
+                        Add Driver
+                    </MudText>
+                }
+                else
+                {
+                    <MudText Typo="Typo.h6">
+                        <MudIcon Icon="@Icons.Material.Filled.Update" Class="mr-3 mb-n1" />
+                        Update Driver
+                    </MudText>
+                }
+            }
+        </TitleContent>
+        <DialogContent>
+            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="First Name" @bind-Value="DriverModel.FirstName" For="@(() => DriverModel.FirstName)" />
+            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Last Name" @bind-Value="DriverModel.LastName" For="@(() => DriverModel.LastName)" />
+            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Phone Number" @bind-Value="DriverModel.PhoneNumber" For="@(() => DriverModel.PhoneNumber)" />
+            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Email" @bind-Value="DriverModel.Email" For="@(() => DriverModel.Email)" />
+            <MudSelect Class="my-2"
+                       Label="Gender"
+                       T="char?"
+                       Strict="true"
+                       Variant="Variant.Outlined"
+                       @bind-Value="DriverModel.Gender"
+                       For="@(() => DriverModel.Gender)">
+
+                <MudSelectItem Value="@male"> Male</MudSelectItem>
+                <MudSelectItem Value="@female"> Female</MudSelectItem>
+            </MudSelect>
+            <MudDatePicker Label="Date of Birth"
+                           @bind-Date="DriverModel.DateOfBirth"
+                           DisableToolbar="true"
+                           MaxDate="@(DateTime.UtcNow.AddYears(-18))"
+                           OpenTo="@(OpenTo.Year)"
+                           DateFormat="dd/MM/yyyy"
+                           For="@(() => DriverModel.DateOfBirth)" />
+            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="License Number" @bind-Value="DriverModel.LicenseNo" For="@(() => DriverModel.LicenseNo)" />
+
+
+        </DialogContent>
+        <DialogActions>
+            <MudButton Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit" Color="Color.Primary">Submit</MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>
+
+@code {
+
+    [Parameter] public NewDriverRequest DriverModel { get; set; } = new();
+
+    [CascadingParameter]
+    public MudDialogInstance? MudDialog { get; set; }
+
+    char? male = 'M';
+    char? female = 'F';
+
+    private void Cancel()
+    {
+        MudDialog?.Cancel();
+    }
+
+    async Task SubmitAsync()
+    {
+        await Task.Delay(0);
+        Console.WriteLine("Sumitted");
+        //_appStateManager.IsBusy = true;
+        //var response = await _walletManager.SaveAsync(WalletForm);
+        //_appStateManager.IsBusy = false;
+        //if (response.Succeeded)
+        //{
+        //    _snackbar.Add("Wallet has been sucessfully added!", Severity.Success);
+        //    MudDialog.Close();
+        //}
+        //else
+        //{
+        //    response.ShowFailureMessages(_snackbar);
+        //}
+    }
+}

@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrafficManagementSystem.API
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficManagementSystem.UI", "src\TrafficManagementSystem.UI\TrafficManagementSystem.UI.csproj", "{D7579F95-F4AC-461B-BDD6-106A2C34A0D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficManagementSystem.UI.Infrastructure", "src\TrafficManagementSystem.UI.Infrastructure\TrafficManagementSystem.UI.Infrastructure.csproj", "{C46759A5-409C-4C77-AC7D-BAAB14E3F2D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{D7579F95-F4AC-461B-BDD6-106A2C34A0D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7579F95-F4AC-461B-BDD6-106A2C34A0D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7579F95-F4AC-461B-BDD6-106A2C34A0D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C46759A5-409C-4C77-AC7D-BAAB14E3F2D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C46759A5-409C-4C77-AC7D-BAAB14E3F2D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C46759A5-409C-4C77-AC7D-BAAB14E3F2D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C46759A5-409C-4C77-AC7D-BAAB14E3F2D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{4512FADA-C510-4BBC-BCBD-EA27DEEB60AA} = {E69989C3-7DB9-47FE-AFA9-1CC86094BBD8}
 		{DF0C69DD-DFB3-4BA6-A7CA-A53B24FEE4AD} = {E69989C3-7DB9-47FE-AFA9-1CC86094BBD8}
 		{D7579F95-F4AC-461B-BDD6-106A2C34A0D2} = {E69989C3-7DB9-47FE-AFA9-1CC86094BBD8}
+		{C46759A5-409C-4C77-AC7D-BAAB14E3F2D2} = {E69989C3-7DB9-47FE-AFA9-1CC86094BBD8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {94CBB268-57D6-4E42-A7A5-C62DBB6497CC}
