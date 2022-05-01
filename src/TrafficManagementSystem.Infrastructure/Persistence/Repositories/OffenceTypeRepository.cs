@@ -1,16 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TrafficManagementSystem.Application.Interfaces;
 using TrafficManagementSystem.Application.Interfaces.Repositories;
 using TrafficManagementSystem.Domain.Entities;
 
 namespace TrafficManagementSystem.Infrastructure.Persistence.Repositories
 {
-    public class OffenceTypeRepository: RepositoryBase<OffenceType>, IOffenceTypeRepository
+    public class OffenceTypeRepository : RepositoryBase<OffenceType>, IOffenceTypeRepository
     {
         public OffenceTypeRepository(IApplicationDbContext context) : base(context)
         {
@@ -24,11 +19,11 @@ namespace TrafficManagementSystem.Infrastructure.Persistence.Repositories
         public void UpdateOffenceType(OffenceType offenceType) => Update(offenceType);
         public void DeleteOffenceType(OffenceType offenceType) => Delete(offenceType);
 
-        public async Task<OffenceType> GetOffenceTypeByCodeAsync(string code) 
-            => await _dbContext.OffenceTypes.FirstOrDefaultAsync(x=>x.Code == code);
+        public async Task<OffenceType> GetOffenceTypeByCodeAsync(string code)
+            => await _dbContext.OffenceTypes.FirstOrDefaultAsync(x => x.Code == code);
 
-        public async Task<IEnumerable<string>> GetOffenceTypeCodes() => 
+        public async Task<IEnumerable<string>> GetOffenceTypeCodes() =>
             await _dbContext.OffenceTypes.Select(x => x.Code).ToListAsync();
-        
+
     }
 }

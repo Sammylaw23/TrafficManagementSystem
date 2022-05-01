@@ -1,9 +1,4 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TrafficManagementSystem.Application.DTOs.Vehicle;
 using TrafficManagementSystem.Application.Exceptions;
 using TrafficManagementSystem.Application.Interfaces;
@@ -13,7 +8,7 @@ using TrafficManagementSystem.Domain.Entities;
 
 namespace TrafficManagementSystem.Application.Services
 {
-    public class VehicleService: IVehicleService
+    public class VehicleService : IVehicleService
     {
         private readonly IRepositoryProvider _repositoryProvider;
         private readonly IMapper _mapper;
@@ -28,7 +23,7 @@ namespace TrafficManagementSystem.Application.Services
             //var vehicle = await _repositoryProvider.VehicleRepository.GetVehicleByPlateNumberAsync(request.PlateNumber);
             //if (vehicle != null)
             //    throw new ApiException("Vehicle already exist.");
-            if(await VehicleExists(request))
+            if (await VehicleExists(request))
                 throw new ApiException("Vehicle already exist.");
             var vehicle = _mapper.Map<Vehicle>(request);
             await _repositoryProvider.VehicleRepository.AddVehicleAsync(vehicle);

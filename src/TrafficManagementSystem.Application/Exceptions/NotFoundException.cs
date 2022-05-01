@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TrafficManagementSystem.Application.Exceptions
+﻿namespace TrafficManagementSystem.Application.Exceptions
 {
     public class NotFoundException : Exception
     {

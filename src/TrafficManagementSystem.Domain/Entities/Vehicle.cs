@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TrafficManagementSystem.Domain.Entities
+﻿namespace TrafficManagementSystem.Domain.Entities
 {
     public class Vehicle : BaseEntity
     {
-        public string? Name { get; set; }       
+        public string? Name { get; set; }
         public string? Model { get; set; }
         public string? Type { get; set; }
         public string? Colour { get; set; }

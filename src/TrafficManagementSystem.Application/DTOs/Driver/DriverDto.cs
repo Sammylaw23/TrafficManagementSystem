@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TrafficManagementSystem.Application.DTOs.Driver
+﻿namespace TrafficManagementSystem.Application.DTOs.Driver
 {
     public class DriverDto
-    {        
+    {
         public Guid Id { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }

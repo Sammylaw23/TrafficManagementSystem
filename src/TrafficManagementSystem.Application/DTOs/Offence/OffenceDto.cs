@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TrafficManagementSystem.Application.DTOs.Offence
+﻿namespace TrafficManagementSystem.Application.DTOs.Offence
 {
     public class OffenceDto
     {
