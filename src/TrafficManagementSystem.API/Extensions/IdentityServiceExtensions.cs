@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using TrafficManagementSystem.Application.Interfaces.Services;
 using TrafficManagementSystem.Application.Wrappers;
 using TrafficManagementSystem.Domain.Entities.Identity;
 using TrafficManagementSystem.Domain.Settings;
@@ -17,8 +18,10 @@ namespace TrafficManagementSystem.API.Extensions
             builder = new IdentityBuilder(builder.UserType, builder.Services);
             builder.AddEntityFrameworkStores<AppIdentityDbContext>();
             builder.AddSignInManager<SignInManager<AppUser>>();
-                
-         
+
+            services.AddScoped<IIdentityService, IdentityService>();
+
+            //services.AddAuthentication();
 
             return services;
         }

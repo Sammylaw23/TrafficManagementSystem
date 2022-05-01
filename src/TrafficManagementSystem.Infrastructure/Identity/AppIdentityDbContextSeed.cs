@@ -12,10 +12,13 @@ namespace TrafficManagementSystem.Infrastructure.Identity
     {
         public static async Task SeedUsersAsync(UserManager<AppUser> userManager)
         {
+            var usersTempVariable = userManager.Users;
             if (!userManager.Users.Any())
             {
                 var user = new AppUser()
                 {
+                    FirstName = "Adeola",
+                    LastName = "Odeku",
                     DisplayName = "Andrew Adigun",
                     Email = "andrew@gmail",
                     UserName = "andrew@gmail",

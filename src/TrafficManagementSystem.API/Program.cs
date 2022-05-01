@@ -51,6 +51,7 @@ using (var scope = app.Services.CreateScope())
         var userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
         var identityContext = serviceProvider.GetRequiredService<AppIdentityDbContext>();
         await identityContext.Database.MigrateAsync();
+
         await AppIdentityDbContextSeed.SeedUsersAsync(userManager);
     }
     catch (Exception ex)
