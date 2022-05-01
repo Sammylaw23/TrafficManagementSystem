@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TrafficManagementSystem.Domain.Entities
+﻿namespace TrafficManagementSystem.Domain.Entities
 {
     public class OffenceType : BaseEntity
     {
@@ -14,8 +8,8 @@ namespace TrafficManagementSystem.Domain.Entities
         public string? Category { get; set; }
         public decimal FineAmount { get; set; }
         public DateTimeOffset DateCreated { get; set; }
-       
 
-        
+
+
     }
 }

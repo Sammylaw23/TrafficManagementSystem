@@ -1,9 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TrafficManagementSystem.Domain.Entities.Identity;
 
 namespace TrafficManagementSystem.Infrastructure.Identity
@@ -30,7 +25,7 @@ namespace TrafficManagementSystem.Infrastructure.Identity
                     }
                 };
 
-                await userManager.CreateAsync(user,"Pa$$w0rd");
+                await userManager.CreateAsync(user, "Pa$$w0rd");
             }
         }
     }
