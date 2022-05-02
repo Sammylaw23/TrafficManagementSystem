@@ -11,7 +11,7 @@
         public string? PlateNumber { get; set; }
         public string? EngineNumber { get; set; }
         public string? ChassisNo { get; set; }
-        public DateTimeOffset RegistrationDate { get; set; }
+        public DateTime? RegistrationDate { get; set; }
         public string? Owner { get; set; }
     }
 }

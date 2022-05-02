@@ -1,0 +1,70 @@
+﻿
+<EditForm Model="VehicleModel" OnValidSubmit="SubmitAsync">
+    <DataAnnotationsValidator />
+    <MudDialog>
+        <TitleContent>
+            @{
+                if (VehicleModel.Id == null)
+                {
+                            <MudText Typo="Typo.h6">
+                                <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1" />
+                                Add Vehicle
+                            </MudText>
+                }
+                else
+                {
+                            <MudText Typo="Typo.h6">
+                                <MudIcon Icon="@Icons.Material.Filled.Update" Class="mr-3 mb-n1" />
+                                Update Vehicle
+                            </MudText>
+                }
+            }
+        </TitleContent>
+        <DialogContent>
+            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Name" @bind-Value="VehicleModel.Name" For="@(() => VehicleModel.Name)" />
+            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Model" @bind-Value="VehicleModel.Model" For="@(() => VehicleModel.Model)" />
+            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Type" @bind-Value="VehicleModel.Type" For="@(() => VehicleModel.Type)" />
+            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Colour" @bind-Value="VehicleModel.Colour" For="@(() => VehicleModel.Colour)" />
+            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Brand" @bind-Value="VehicleModel.Brand" For="@(() => VehicleModel.Brand)" />
+            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Plate Number" @bind-Value="VehicleModel.PlateNumber" For="@(() => VehicleModel.PlateNumber)" />
+            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Engine Number" @bind-Value="VehicleModel.EngineNumber" For="@(() => VehicleModel.EngineNumber)" />
+            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Owner" @bind-Value="VehicleModel.Owner" For="@(() => VehicleModel.Owner)" />
+
+        </DialogContent>
+        <DialogActions>
+            <MudButton Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit" Color="Color.Primary">Submit</MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>
+
+@code {
+
+    [Parameter] public NewVehicleRequest VehicleModel { get; set; } = new();
+
+    [CascadingParameter]
+    public MudDialogInstance? MudDialog { get; set; }
+
+    private void Cancel()
+    {
+        MudDialog?.Cancel();
+    }
+
+    async Task SubmitAsync()
+    {
+        await Task.Delay(0);
+        Console.WriteLine("Submitted");
+        //_appStateManager.IsBusy = true;
+        //var response = await _walletManager.SaveAsync(WalletForm);
+        //_appStateManager.IsBusy = false;
+        //if (response.Succeeded)
+        //{
+        //    _snackbar.Add("Wallet has been sucessfully added!", Severity.Success);
+        //    MudDialog.Close();
+        //}
+        //else
+        //{
+        //    response.ShowFailureMessages(_snackbar);
+        //}
+    }
+}
