@@ -3,6 +3,7 @@
 @using TrafficManagementSystem.Application.DTOs.User
 @layout MainLayout
 @attribute [AllowAnonymous]
+@inject IAuthenticationManager _authenticationManager
 
 <MudText Typo="Typo.h6" GutterBottom="true" Align="Align.Center">Sign In</MudText>
 
@@ -20,9 +21,9 @@
                           Adornment="Adornment.End"
                           AdornmentIcon="@passwordInputIcon"
                           OnAdornmentClick="TogglePasswordVisibility" />
-            <div Class="d-flex justify-space-between">
+            @*<div Class="d-flex justify-space-between">
                 <MudLink Href="/authentication/reset-password"><small>Forgot Password?</small></MudLink>
-            </div>
+            </div>*@
         </MudCardContent>
         <MudCardActions Class="pa-4 mb-5">
             <MudButton Class="mb-4" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Size="Size.Large" Color="Color.Primary" FullWidth="true">Sign In</MudButton>
@@ -52,14 +53,13 @@
 
     async Task SubmitAsync()
     {
-        await Task.Delay(0);
         //    _appStateManager.IsBusy = true;
-        //    var response = await _authenticationManager.Login(loginModel);
-        //    _appStateManager.IsBusy = false;
-        //    if (!response.Succeeded)
-        //    {
-        //        response.ShowFailureMessages(_snackbar);
-        //    }
+            var response = await _authenticationManager.Login(loginModel);
+           // _appStateManager.IsBusy = false;
+            if (!response.Succeeded)
+            {
+                response.ShowFailureMessages(_snackbar);
+            }
     }
 
     void TogglePasswordVisibility()
