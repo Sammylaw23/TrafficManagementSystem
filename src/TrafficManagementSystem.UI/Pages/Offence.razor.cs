@@ -25,9 +25,7 @@ namespace TrafficManagementSystem.UI.Pages
                         OffenceTypeCode = offence.OffenceTypeCode,
                         OffenderName = offence.OffenderName,
                         PlateNumber = offence.PlateNumber,
-                        CreatedBy = offence.CreatedBy,
                         LicenseNo = offence.LicenseNo,
-                        ReportDate = offence.ReportDate
                     });
                 }
             }

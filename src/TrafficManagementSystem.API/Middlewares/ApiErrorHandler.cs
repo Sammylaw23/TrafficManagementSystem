@@ -54,8 +54,12 @@ namespace TrafficManagementSystem.API.Middlewares
                         break;
                     default:
                         response.StatusCode = (int)HttpStatusCode.InternalServerError;
+#if DEBUG
+                        responseModel.Messages.Add(error.Message);
+#else
                         if (responseModel.Messages.Count == 0)
                             responseModel.Messages.Add("An error occurred.");
+#endif
                         break;
                 }
                 await response.WriteAsJsonAsync(responseModel);
