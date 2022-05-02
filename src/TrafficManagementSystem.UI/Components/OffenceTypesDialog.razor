@@ -24,15 +24,8 @@
             <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Offence Name" @bind-Value="OffenceTypeModel.Name" For="@(() => OffenceTypeModel.Name)" />
             <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Point" @bind-Value="OffenceTypeModel.Point" For="@(() => OffenceTypeModel.Point)" />
             <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Fine Amount" @bind-Value="OffenceTypeModel.FineAmount" For="@(() => OffenceTypeModel.FineAmount)" />
-
             <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Category" @bind-Value="OffenceTypeModel.Category" For="@(() => OffenceTypeModel.Category)" />
             <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Offence Code" @bind-Value="OffenceTypeModel.Code" For="@(() => OffenceTypeModel.Code)" />
-
-            @{
-                //Do dropdown for category and code
-            }
-            
-
         </DialogContent>
         <DialogActions>
             <MudButton Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
