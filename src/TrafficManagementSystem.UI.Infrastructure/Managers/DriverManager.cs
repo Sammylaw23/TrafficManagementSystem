@@ -16,7 +16,7 @@ namespace TrafficManagementSystem.UI.Infrastructure.Managers
 {
     public interface IDriverManager
     {
-        Task<Response<DriverDto>> AddDriver(NewDriverRequest request);
+        Task<IResponse> AddDriver(NewDriverRequest request);
         Task<List<DriverDto>> GetDrivers();
         Task<DriverDto> GetDriver(Guid id);
         Task<IResponse> DeleteDriver(Guid id);
@@ -34,10 +34,14 @@ namespace TrafficManagementSystem.UI.Infrastructure.Managers
             _snackbar = snackbar;
         }
 
-        public async Task<Response<DriverDto>> AddDriver(NewDriverRequest request)
+        public async Task<IResponse> AddDriver(NewDriverRequest request)
         {
+            Console.WriteLine("Add driver called.");
             var response = await _httpClient.PostAsJsonAsync(Endpoints.DriverEndpoints.AddDriver, request);
-            return await response.Content.ReadFromJsonAsync<Response<DriverDto>>();
+            if (response.IsSuccessStatusCode)
+                return await Response.SuccessAsync();
+            var content = await response.Content.ReadFromJsonAsync<Response<string>>();
+            return await Response.FailAsync(content.Messages);
         }
 
         public async Task<IResponse> DeleteDriver(Guid id)
@@ -46,7 +50,6 @@ namespace TrafficManagementSystem.UI.Infrastructure.Managers
             if (response.IsSuccessStatusCode)
                 return await Response.SuccessAsync();
             var content = await response.Content.ReadFromJsonAsync<Response<string>>();
-            //return (content != null) ? await Response.FailAsync(content.Messages) : null;
             return await Response.FailAsync(content.Messages);
         }
 

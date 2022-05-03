@@ -9,6 +9,6 @@
         public string? PlateNumber { get; set; }
         public string? LicenseNo { get; set; }
         public string? CreatedBy { get; set; }
-        public DateTime ReportDate { get; set; }
+        public DateTime CreatedTime { get; set; }
     }
 }

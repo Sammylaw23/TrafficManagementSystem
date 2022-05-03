@@ -54,6 +54,7 @@
                                    @bind-Date="DriverModel.DateOfBirth"
                                    DisableToolbar="true"
                                    MaxDate="@(DateTime.UtcNow.AddYears(-18))"
+                                   MinDate="@(DateTime.UtcNow.AddYears(-80))"
                                    OpenTo="@(OpenTo.Year)"
                                    DateFormat="dd/MM/yyyy"
                                    For="@(() => DriverModel.DateOfBirth)" />
@@ -61,11 +62,10 @@
 
             </MudGrid>
 
-
         </DialogContent>
         <DialogActions>
             <MudButton Variant="@AppConstants.Designs.ButtonVariant" OnClick="Cancel">Cancel</MudButton>
-            <MudButton Variant="@AppConstants.Designs.ButtonVariant" ButtonType="ButtonType.Submit" Color="Color.Primary" OnClick="SubmitAsync">Submit</MudButton>
+            <MudButton Variant="@AppConstants.Designs.ButtonVariant" ButtonType="ButtonType.Submit" Color="Color.Primary">Submit</MudButton>
         </DialogActions>
     </MudDialog>
 </EditForm>
@@ -79,20 +79,18 @@
 
     char? male = 'M';
     char? female = 'F';
-
     private void Cancel()
     {
         MudDialog?.Cancel();
     }
 
-    async Task SubmitAsync()
+    async void SubmitAsync()
     {
-        //_appStateManager.IsBusy = true;
+        _appStateManager.IsBusy = true;
         var response = await _driverManager.AddDriver(DriverModel);
-        //_appStateManager.IsBusy = false;
+        _appStateManager.IsBusy = false;
         if (response.Succeeded)
         {
-            _snackbar.Add("Driver created!", Severity.Success);
             MudDialog?.Close();
         }
         else

@@ -24,7 +24,16 @@
             <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Offender Name" @bind-Value="OffenceModel.OffenderName" For="@(() => OffenceModel.OffenderName)" />
             <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Plate Number" @bind-Value="OffenceModel.PlateNumber" For="@(() => OffenceModel.PlateNumber)" />
             <MudTextField Class="my-3" Variant="Variant.Outlined" Label="License Number" @bind-Value="OffenceModel.LicenseNo" For="@(() => OffenceModel.LicenseNo)" />
-            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Offence Code" @bind-Value="OffenceModel.OffenceTypeCode" For="@(() => OffenceModel.OffenceTypeCode)" />
+            <MudSelect Class="my-3"
+                       Variant="@AppConstants.Designs.InputTextVariant"
+                       Label="Offence Code" @bind-Value="OffenceModel.OffenceTypeCode"
+                       For="@(() => OffenceModel.OffenceTypeCode)"
+                       Immediate="true">
+                @foreach (var offenceType in offenceTypes)
+                {
+                    <MudSelectItem Value="@offenceType.Code">@offenceType.Name</MudSelectItem>
+                }
+            </MudSelect>
         </DialogContent>
         <DialogActions>
             <MudButton Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
@@ -44,6 +53,12 @@
     [CascadingParameter]
     public MudDialogInstance? MudDialog { get; set; }
     List<string> offenceCodes = new List<string>();
+    List<OffenceTypeDto> offenceTypes = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        offenceTypes = await _offenceTypeManager.GetOffenceTypes();
+    }
 
     private void Cancel()
     {
@@ -52,9 +67,9 @@
 
     async Task SubmitAsync()
     {
-        //_appStateManager.IsBusy = true;
+        _appStateManager.IsBusy = true;
         var response = await _offenceManager.AddOffence(OffenceModel);
-        //_appStateManager.IsBusy = false;
+        _appStateManager.IsBusy = false;
         if (response.Succeeded)
         {
             _snackbar.Add("Offence created!", Severity.Success);

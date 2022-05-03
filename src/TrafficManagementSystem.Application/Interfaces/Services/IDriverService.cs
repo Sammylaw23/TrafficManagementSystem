@@ -5,7 +5,7 @@ namespace TrafficManagementSystem.Application.Interfaces.Services
 {
     public interface IDriverService
     {
-        Task<Response<DriverDto>> AddDriverAsync(NewDriverRequest request);
+        Task SaveDriverAsync(NewDriverRequest request);
         Task<Response<DriverDto>> GetDriverById(Guid id);
         Task<Response<IEnumerable<DriverDto>>> GetAllDrivers();
         Task DeleteDriverAsync(Guid id);

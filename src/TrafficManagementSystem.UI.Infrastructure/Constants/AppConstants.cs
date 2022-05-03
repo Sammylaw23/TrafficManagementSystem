@@ -22,7 +22,7 @@ namespace TrafficManagementSystem.UI.Infrastructure.Constants
 
         public static class ErrorMessages
         {
-            public const string SessionTimeout = "";
+            public const string SessionTimeout = "Session timeout";
         }
     }
 
