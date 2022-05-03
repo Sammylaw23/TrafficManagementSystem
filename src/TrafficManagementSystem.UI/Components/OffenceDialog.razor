@@ -52,47 +52,17 @@
 
     async Task SubmitAsync()
     {
-        await Task.Delay(0);
-
-        offenceCodes.Add("TEMP1");
-        offenceCodes.Add("TEMP2");
-        Console.WriteLine("Submitted");
         //_appStateManager.IsBusy = true;
-        //var response = await _walletManager.SaveAsync(WalletForm);
+        var response = await _offenceManager.AddOffence(OffenceModel);
         //_appStateManager.IsBusy = false;
-        //if (response.Succeeded)
-        //{
-        //    _snackbar.Add("Wallet has been sucessfully added!", Severity.Success);
-        //    MudDialog.Close();
-        //}
-        //else
-        //{
-        //    response.ShowFailureMessages(_snackbar);
-        //}
-
-        //<MudSelect Class="my-2" Variant="Variant.Outlined" Label="OffenceCodeList" T="string" Strict="true"  @bind-Value="offenceCodeValue" MultiSelection="true"
-        //               @bind-SelectedValues="@offenceCodes.AsEnumerable()" For="@(() => OffenceModel.OffenceTypeCode)">
-
-        //        @foreach (var offenceCode in offenceCodes)
-        //        {
-        //            <MudSelectItem Value="@offenceCode">@offenceCode</MudSelectItem>
-        //            //<MudSelectItem T="string" Value="@offenceCode">@offenceCode</MudSelectItem>
-
-        //        }
-        //    </MudSelect>
-
-
-
-        //        <MudSelect T="Part" Label="Parts" MultiSelection="true" @bind-Value="partsValue" @bind-SelectedValues="partsOptions">
-        //  @foreach (var part in PartService.Parts)
-        //  {
-        //    <MudSelectItem T="Part" Value="@part">@part.Name</MudSelectItem>
-        //  }
-        //</MudSelect>
-
-        //@code {
-        //  private string partsValue { get; set; } = "Nothing selected";
-        //  private IEnumerable<Part> partsOptions { get; set; } = new HashSet<Part>();
-
+        if (response.Succeeded)
+        {
+            _snackbar.Add("Offence created!", Severity.Success);
+            MudDialog?.Close();
+        }
+        else
+        {
+            response.ShowFailureMessages(_snackbar);
+        }
     }
 }

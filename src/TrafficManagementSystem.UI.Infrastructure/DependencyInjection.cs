@@ -20,7 +20,7 @@ namespace TrafficManagementSystem.UI.Infrastructure
             builder.Services
                 .AddOptions()
                 .AddAuthorizationCore()
-                 //.AddLocalization(options => options.ResourcesPath = "Resources")
+                //.AddLocalization(options => options.ResourcesPath = "Resources")
                 .AddMudServices()
                 .AddBlazoredLocalStorage()
                 .AddScoped<AuthenticationStateProvider, AppStateProvider>()
@@ -34,9 +34,9 @@ namespace TrafficManagementSystem.UI.Infrastructure
         {
             services.AddTransient<IAuthenticationManager, AuthenticationManager>();
             services.AddTransient<IDriverManager, DriverManager>();
-            //services.AddTransient<IWalletManager, WalletManager>();
-            //services.AddTransient<ICurrencyManager, CurrencyManager>();
-            //services.AddTransient<ITransactionManager, TransactionManager>();
+            services.AddTransient<IVehicleManager, VehicleManager>();
+            services.AddTransient<IOffenceManager, OffenceManager>();
+            services.AddTransient<IOffenceTypeManager, OffenceTypeManager>();
             //services.AddSingleton<ApplicationStateManager>();
 
             return services;

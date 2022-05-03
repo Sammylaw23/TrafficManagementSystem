@@ -51,19 +51,17 @@
 
     async Task SubmitAsync()
     {
-        await Task.Delay(0);
-        Console.WriteLine("Submitted");
         //_appStateManager.IsBusy = true;
-        //var response = await _walletManager.SaveAsync(WalletForm);
+        var response = await _vehicleManager.AddVehicle(VehicleModel);
         //_appStateManager.IsBusy = false;
-        //if (response.Succeeded)
-        //{
-        //    _snackbar.Add("Wallet has been sucessfully added!", Severity.Success);
-        //    MudDialog.Close();
-        //}
-        //else
-        //{
-        //    response.ShowFailureMessages(_snackbar);
-        //}
+        if (response.Succeeded)
+        {
+            _snackbar.Add("Vehicle created!", Severity.Success);
+            MudDialog?.Close();
+        }
+        else
+        {
+            response.ShowFailureMessages(_snackbar);
+        }
     }
 }
