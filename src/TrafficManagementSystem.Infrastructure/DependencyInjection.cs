@@ -7,9 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using TrafficManagementSystem.Application.Interfaces;
+using TrafficManagementSystem.Application.Interfaces.Services;
 using TrafficManagementSystem.Application.Wrappers;
 using TrafficManagementSystem.Domain.Settings;
 using TrafficManagementSystem.Infrastructure.DbContexts;
+using TrafficManagementSystem.Infrastructure.Identity;
 using TrafficManagementSystem.Infrastructure.Models;
 using TrafficManagementSystem.Infrastructure.Persistence;
 
@@ -19,23 +21,23 @@ namespace TrafficManagementSystem.Infrastructure
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+            //var connectionString = configuration.GetConnectionString("DefaultConnectionMSSQL");
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             //var connectionString = configuration.GetConnectionString("ApplicationDbConnectionString");
 
-            var useSQLLite = configuration.GetValue<bool>("Settings:UseSQLLiteForMigration");
-            //var useSQLLiteBoolean = bool.Parse(useSQLLite);
-            if (useSQLLite)
-            {
-                services.AddDbContext<TrafficManagementSystemDbContext>(
-                   options => options.UseSqlite(connectionString,
-                   x => x.MigrationsAssembly(typeof(TrafficManagementSystemDbContext).Assembly.FullName)));
-            }
-            else
-            {
-                services.AddDbContext<TrafficManagementSystemDbContext>(
-                    options => options.UseSqlServer(connectionString,
-                    x => x.MigrationsAssembly(typeof(TrafficManagementSystemDbContext).Assembly.FullName)));
-            }
+            //var useSQLLite = configuration.GetValue<bool>("Settings:UseSQLLiteForMigration");
+            services.AddDbContext<TrafficManagementSystemDbContext>(
+               options => options.UseSqlite(connectionString,
+               x => x.MigrationsAssembly(typeof(TrafficManagementSystemDbContext).Assembly.FullName)));
+            //if (useSQLLite)
+            //{
+            //}
+            //else
+            //{
+            //    services.AddDbContext<TrafficManagementSystemDbContext>(
+            //        options => options.UseSqlServer(connectionString,
+            //        x => x.MigrationsAssembly(typeof(TrafficManagementSystemDbContext).Assembly.FullName)));
+            //}
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                          .AddEntityFrameworkStores<TrafficManagementSystemDbContext>()
@@ -44,6 +46,7 @@ namespace TrafficManagementSystem.Infrastructure
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<TrafficManagementSystemDbContext>());
 
             services.AddScoped<IRepositoryProvider, RepositoryProvider>();
+            services.AddScoped<IIdentityService, IdentityService>();
 
             services.Configure<JWTSettings>(configuration.GetSection("JWTSettings"));
 

@@ -14,12 +14,11 @@ namespace TrafficManagementSystem.API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly JWTSettings _jwtsettings;
+     
         private readonly IIdentityService _identityService;
 
-        public UsersController(IOptions<JWTSettings> jwtsettings, IIdentityService identityService)
+        public UsersController(IIdentityService identityService)
         {
-            _jwtsettings = jwtsettings.Value;
             _identityService = identityService;
         }
 
@@ -34,18 +33,5 @@ namespace TrafficManagementSystem.API.Controllers
     }
 }
 
-//var tokenHandler = new JwtSecurityTokenHandler();
-//var key = Encoding.ASCII.GetBytes(_jwtsettings.SecretKey);
-//var tokenDescriptor = new SecurityTokenDescriptor
-//{
-//    Subject = new ClaimsIdentity(new Claim[]
-//    {
-//                        new Claim(ClaimTypes.Name, request.Email)
 
-//    }),
-//    Expires = DateTime.UtcNow.AddMinutes(_jwtsettings.DurationInMinutes),
-//    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-//};
-//var token = tokenHandler.CreateToken(tokenDescriptor);
-//response.JWToken = tokenHandler.WriteToken(token);
 

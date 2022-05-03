@@ -11,7 +11,7 @@ namespace TrafficManagementSystem.Infrastructure.Persistence
 
         public RepositoryBase(IApplicationDbContext context)
         {
-            _dbContext = context as TrafficManagementSystemDbContext;
+            _dbContext = (TrafficManagementSystemDbContext)context;
         }
 
         protected virtual async Task AddAsync(T entity) => await _dbContext.Set<T>().AddAsync(entity);

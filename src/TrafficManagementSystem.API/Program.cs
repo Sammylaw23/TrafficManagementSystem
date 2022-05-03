@@ -1,6 +1,13 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using TrafficManagementSystem.API.Extensions;
+using TrafficManagementSystem.API.Services;
 using TrafficManagementSystem.Application;
+using TrafficManagementSystem.Application.Interfaces.Services;
 using TrafficManagementSystem.Infrastructure;
+using TrafficManagementSystem.Infrastructure.DbContexts;
+using TrafficManagementSystem.Infrastructure.Identity;
+using TrafficManagementSystem.Infrastructure.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,17 +21,13 @@ var builder = WebApplication.CreateBuilder(args);
 //    options.UseSqlServer(connectionString));
 builder.Services.AddApplicationLayer();
 builder.Services.AddInfrastructure(builder.Configuration);
-
-
-
-
-
+builder.Services.AddCors(options => options.AddDefaultPolicy(_builder => _builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
 
 
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -34,27 +37,23 @@ var app = builder.Build();
 
 
 
-//using (var scope = app.Services.CreateScope())
-//{
-//    var serviceProvider = scope.ServiceProvider;
-//    try
-//    {
-//        var userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
-//        var identityContext = serviceProvider.GetRequiredService<AppIdentityDbContext>();
-//        await identityContext.Database.MigrateAsync();
-//        await AppIdentityDbContextSeed.SeedUsersAsync(userManager);
-//    }
-//    catch (Exception ex)
-//    {
-//        var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
-//        logger.LogError(ex, "An error occurred during migration");
-//    }
-//}
-
-//var userManager = app.Services.GetRequiredService<UserManager<AppUser>>();
-//var identityContext = app.Services.GetRequiredService<AppIdentityDbContext>();
-//await identityContext.Database.MigrateAsync();
-//await AppIdentityDbContextSeed.SeedUsersAsync(userManager);
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    try
+    {
+        var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        var dbContext = serviceProvider.GetRequiredService<TrafficManagementSystemDbContext>();
+        await dbContext.Database.MigrateAsync();
+        await AppIdentityDbContextSeed.SeedUsersAsync(userManager);
+        await AppIdentityDbContextSeed.SeedOffenceTypes(dbContext);
+    }
+    catch (Exception ex)
+    {
+        var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred during migration");
+    }
+}
 
 
 
@@ -65,6 +64,8 @@ app.UseSwaggerUI();
 //}
 
 app.UseHttpsRedirection();
+app.UseRouting();
+app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseApiErrorHandler();

@@ -5,7 +5,7 @@ namespace TrafficManagementSystem.Application.Interfaces.Services
 {
     public interface IOffenceService
     {
-        Task<Response<OffenceDto>> AddOffenceAsync(NewOffenceRequest request);
+        Task AddOffenceAsync(NewOffenceRequest request);
         Task<Response<OffenceDto>> GetOffenceById(Guid id);
         Task<Response<IEnumerable<OffenceDto>>> GetAllOffences();
         Task DeleteOffenceAsync(Guid id);

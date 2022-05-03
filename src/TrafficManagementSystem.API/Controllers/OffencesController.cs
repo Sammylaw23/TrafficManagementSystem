@@ -20,8 +20,8 @@ namespace TrafficManagementSystem.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddOffence(NewOffenceRequest request)
         {
-            var response = await _offenceService.AddOffenceAsync(request);
-            return CreatedAtAction(nameof(GetOffence), new { id = response.Data.Id }, response);
+             await _offenceService.AddOffenceAsync(request);
+            return Ok();
         }
 
         [HttpGet]

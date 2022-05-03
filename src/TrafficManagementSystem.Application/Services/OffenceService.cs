@@ -18,7 +18,7 @@ namespace TrafficManagementSystem.Application.Services
             _repositoryProvider = repositoryProvider;
             _mapper = mapper;
         }
-        public async Task<Response<OffenceDto>> AddOffenceAsync(NewOffenceRequest request)
+        public async Task AddOffenceAsync(NewOffenceRequest request)
         {
             //TODO: Rethink this logic so that the same offence will not be entered twice and so that two 
             //different offences will not be seen as the same offence
@@ -42,14 +42,12 @@ namespace TrafficManagementSystem.Application.Services
                 response.Messages.Add($"Invalid plate number");
 
             var offence = _mapper.Map<Offence>(request);
-            offence.CreatedBy = "Olopa"; //TODO: From user logged on
+           
             //offence.OffenceTypeId = offenceType.Id; //TODO:Revisit this
 
             await _repositoryProvider.OffenceRepository.AddOffenceAsync(offence);
             await _repositoryProvider.SaveChangesAsync();
-            response.Data = _mapper.Map<OffenceDto>(offence);
-            response.Succeeded = true;
-            return response;
+           
         }
 
         public async Task DeleteOffenceAsync(Guid id)

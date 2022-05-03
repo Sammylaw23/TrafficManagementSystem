@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TrafficManagementSystem.Infrastructure.Identity;
+using TrafficManagementSystem.Infrastructure.DbContexts;
 
 #nullable disable
 
-namespace TrafficManagementSystem.Infrastructure.Identity.Migrations
+namespace TrafficManagementSystem.Infrastructure.Migrations
 {
-    [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20220501120349_AppUser")]
-    partial class AppUser
+    [DbContext(typeof(TrafficManagementSystemDbContext))]
+    [Migration("20220503160733_datetimeoffset")]
+    partial class datetimeoffset
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -147,49 +147,157 @@ namespace TrafficManagementSystem.Infrastructure.Identity.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("TrafficManagementSystem.Domain.Entities.Identity.Address", b =>
+            modelBuilder.Entity("TrafficManagementSystem.Domain.Entities.Driver", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("AppUserId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("City")
-                        .IsRequired()
+                    b.Property<string>("Address")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<char>("Gender")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("State")
-                        .IsRequired()
+                    b.Property<string>("LicenseNo")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Street")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ZipCode")
-                        .IsRequired()
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUserId")
-                        .IsUnique();
-
-                    b.ToTable("Address");
+                    b.ToTable("Drivers");
                 });
 
-            modelBuilder.Entity("TrafficManagementSystem.Domain.Entities.Identity.AppUser", b =>
+            modelBuilder.Entity("TrafficManagementSystem.Domain.Entities.Offence", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LicenseNo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OffenceTypeCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OffenderName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PlateNumber")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Offences");
+                });
+
+            modelBuilder.Entity("TrafficManagementSystem.Domain.Entities.OffenceType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Category")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("FineAmount")
+                        .HasPrecision(10, 3)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<short>("Point")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OffenceTypes");
+                });
+
+            modelBuilder.Entity("TrafficManagementSystem.Domain.Entities.Vehicle", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Brand")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ChassisNo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Colour")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("EngineNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Model")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Owner")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PlateNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("RegistrationDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Vehicles");
+                });
+
+            modelBuilder.Entity("TrafficManagementSystem.Infrastructure.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
@@ -197,15 +305,11 @@ namespace TrafficManagementSystem.Infrastructure.Identity.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("Active")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Address")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("DisplayName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -216,11 +320,9 @@ namespace TrafficManagementSystem.Infrastructure.Identity.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("LockoutEnabled")
@@ -279,7 +381,7 @@ namespace TrafficManagementSystem.Infrastructure.Identity.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("TrafficManagementSystem.Domain.Entities.Identity.AppUser", null)
+                    b.HasOne("TrafficManagementSystem.Infrastructure.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -288,7 +390,7 @@ namespace TrafficManagementSystem.Infrastructure.Identity.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("TrafficManagementSystem.Domain.Entities.Identity.AppUser", null)
+                    b.HasOne("TrafficManagementSystem.Infrastructure.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -303,7 +405,7 @@ namespace TrafficManagementSystem.Infrastructure.Identity.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TrafficManagementSystem.Domain.Entities.Identity.AppUser", null)
+                    b.HasOne("TrafficManagementSystem.Infrastructure.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -312,27 +414,10 @@ namespace TrafficManagementSystem.Infrastructure.Identity.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("TrafficManagementSystem.Domain.Entities.Identity.AppUser", null)
+                    b.HasOne("TrafficManagementSystem.Infrastructure.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("TrafficManagementSystem.Domain.Entities.Identity.Address", b =>
-                {
-                    b.HasOne("TrafficManagementSystem.Domain.Entities.Identity.AppUser", "AppUser")
-                        .WithOne("Address")
-                        .HasForeignKey("TrafficManagementSystem.Domain.Entities.Identity.Address", "AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-                });
-
-            modelBuilder.Entity("TrafficManagementSystem.Domain.Entities.Identity.AppUser", b =>
-                {
-                    b.Navigation("Address")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

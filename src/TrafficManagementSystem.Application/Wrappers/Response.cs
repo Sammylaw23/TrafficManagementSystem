@@ -7,7 +7,7 @@
 
         }
 
-        public Response(T data, string message = null, bool succeeded = true)
+        public Response(T data, string? message = null, bool succeeded = true)
         {
             Succeeded = succeeded;
             Data = data;
@@ -20,9 +20,8 @@
             Messages = new List<string> { message };
         }
         public bool Succeeded { get; set; }
-        //public string Message { get; set; }
         public List<string> Messages { get; set; } = new List<string>();
-        public T Data { get; set; }
+        public T? Data { get; set; }
     }
 
     public class Response : IResponse

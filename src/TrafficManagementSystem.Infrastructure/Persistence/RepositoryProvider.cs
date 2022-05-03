@@ -12,7 +12,6 @@ namespace TrafficManagementSystem.Infrastructure.Persistence
         private IVehicleRepository _vehicleRepository;
         private IOffenceRepository _offenceRepository;
         private IOffenceTypeRepository _offenceTypeRepository;
-        private IUserRepository _userRepository;
         public RepositoryProvider(IApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -23,7 +22,6 @@ namespace TrafficManagementSystem.Infrastructure.Persistence
         public IOffenceRepository OffenceRepository => _offenceRepository ??= new OffenceRepository(_dbContext);
         public IOffenceTypeRepository OffenceTypeRepository
             => _offenceTypeRepository ??= new OffenceTypeRepository(_dbContext);
-        public IUserRepository UserRepository => _userRepository ??= new UserRepository(_dbContext);
 
         public async Task SaveChangesAsync() => await _dbContext.SaveChangesAsync();
 
