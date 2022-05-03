@@ -6,15 +6,6 @@ namespace TrafficManagementSystem.Infrastructure.Models
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
+        public string? Address { get; internal set; }
     }
-
-    //public class Temp
-    //{
-    //    public void ffdj()
-    //    {
-
-    //    ApplicationUser applicationUser = new ApplicationUser();
-    //      var id =  applicationUser.Id;
-    //    }
-    //}
 }

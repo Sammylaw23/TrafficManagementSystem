@@ -26,14 +26,12 @@ namespace TrafficManagementSystem.UI.Infrastructure.Managers
         private readonly HttpClient _httpClient;
         private readonly ILogger<OffenceManager> _logger;
         private readonly ISnackbar _snackbar;
-        private readonly IStringLocalizer<OffenceManager> _localizer;
 
-        public OffenceManager(HttpClient httpClient, ILogger<OffenceManager> logger, ISnackbar snackbar, IStringLocalizer<OffenceManager> localizer)
+        public OffenceManager(HttpClient httpClient, ILogger<OffenceManager> logger, ISnackbar snackbar)
         {
             _httpClient = httpClient;
             _logger = logger;
             _snackbar = snackbar;
-            _localizer = localizer;
         }
 
         public async Task<Response<OffenceDto>> AddOffence(NewOffenceRequest request)
@@ -67,7 +65,7 @@ namespace TrafficManagementSystem.UI.Infrastructure.Managers
             }
             catch (Exception ex)
             {
-                _snackbar.Add(_localizer["Failed to fetch Offences."], Severity.Error);
+                _snackbar.Add("Failed to fetch Offences.", Severity.Error);
                 _logger.LogError(ex.Format());
                 return new List<OffenceDto>();
             }

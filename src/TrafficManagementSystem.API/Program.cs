@@ -1,6 +1,11 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using TrafficManagementSystem.API.Extensions;
 using TrafficManagementSystem.Application;
 using TrafficManagementSystem.Infrastructure;
+using TrafficManagementSystem.Infrastructure.DbContexts;
+using TrafficManagementSystem.Infrastructure.Identity;
+using TrafficManagementSystem.Infrastructure.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,27 +40,23 @@ var app = builder.Build();
 
 
 
-//using (var scope = app.Services.CreateScope())
-//{
-//    var serviceProvider = scope.ServiceProvider;
-//    try
-//    {
-//        var userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
-//        var identityContext = serviceProvider.GetRequiredService<AppIdentityDbContext>();
-//        await identityContext.Database.MigrateAsync();
-//        await AppIdentityDbContextSeed.SeedUsersAsync(userManager);
-//    }
-//    catch (Exception ex)
-//    {
-//        var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
-//        logger.LogError(ex, "An error occurred during migration");
-//    }
-//}
-
-//var userManager = app.Services.GetRequiredService<UserManager<AppUser>>();
-//var identityContext = app.Services.GetRequiredService<AppIdentityDbContext>();
-//await identityContext.Database.MigrateAsync();
-//await AppIdentityDbContextSeed.SeedUsersAsync(userManager);
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    try
+    {
+        var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        var dbContext = serviceProvider.GetRequiredService<TrafficManagementSystemDbContext>();
+        await dbContext.Database.MigrateAsync();
+        await AppIdentityDbContextSeed.SeedUsersAsync(userManager);
+        await AppIdentityDbContextSeed.SeedOffenceTypes(dbContext);
+    }
+    catch (Exception ex)
+    {
+        var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred during migration");
+    }
+}
 
 
 

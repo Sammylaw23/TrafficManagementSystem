@@ -21,9 +21,6 @@
                           Adornment="Adornment.End"
                           AdornmentIcon="@passwordInputIcon"
                           OnAdornmentClick="TogglePasswordVisibility" />
-            @*<div Class="d-flex justify-space-between">
-                <MudLink Href="/authentication/reset-password"><small>Forgot Password?</small></MudLink>
-            </div>*@
         </MudCardContent>
         <MudCardActions Class="pa-4 mb-5">
             <MudButton Class="mb-4" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Size="Size.Large" Color="Color.Primary" FullWidth="true">Sign In</MudButton>
@@ -37,29 +34,26 @@
     bool passwordVisibility;
     string passwordInputIcon = Icons.Material.Filled.VisibilityOff;
     InputType passwordInputType = InputType.Password;
-    //AuthenticationState authenticationState;
-
 
 
     protected override async Task OnInitializedAsync()
     {
-         await Task.Delay(0);
-        //authenticationState = await _stateProvider.GetAuthenticationStateAsync();
-        //if (!authenticationState.IsAnonymous())
-        //{
-        //    _navigationManager.NavigateTo("/dashboard");
-        //}
+        AuthenticationState authenticationState = await _authStateProvider.GetAuthenticationStateAsync();
+        if (authenticationState != AppAuthenticationStateProvider.Anonymous)
+        {
+            _navigationManager.NavigateTo("/dashboard");
+        }
     }
 
     async Task SubmitAsync()
     {
-        //    _appStateManager.IsBusy = true;
-            var response = await _authenticationManager.Login(loginModel);
-           // _appStateManager.IsBusy = false;
-            if (!response.Succeeded)
-            {
-                response.ShowFailureMessages(_snackbar);
-            }
+        _appStateManager.IsBusy = true;
+        var response = await _authenticationManager.Login(loginModel);
+        _appStateManager.IsBusy = false;
+        if (!response.Succeeded)
+        {
+            response.ShowFailureMessages(_snackbar);
+        }
     }
 
     void TogglePasswordVisibility()

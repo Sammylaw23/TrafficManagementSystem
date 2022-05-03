@@ -9,10 +9,18 @@ namespace TrafficManagementSystem.UI.Pages
         List<OffenceTypeDto> offenceTypes = new();
         string? searchString;
 
+        protected override async Task OnInitializedAsync()
+        {
+            await GetOffenceTypes();
+        }
+
+        async Task GetOffenceTypes()
+        {
+            offenceTypes = await _offenceTypeManager.GetOffenceTypes();
+        }
+
         async Task InvokeOffenceTypeDialog(Guid? id = null)
         {
-            await Task.Delay(0);
-
             var parameters = new DialogParameters();
             if (id != null)
             {

@@ -1,13 +1,10 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using TrafficManagementSystem.UI;
-using MudBlazor.Services;
-using Blazored.LocalStorage;
-using TrafficManagementSystem.UI.Infrastructure.Authentication;
 using Toolbelt.Blazor.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Components.Authorization;
-using TrafficManagementSystem.UI.Infrastructure.Managers;
+using TrafficManagementSystem.UI;
 using TrafficManagementSystem.UI.Infrastructure;
+using TrafficManagementSystem.UI.Infrastructure.Authentication;
+using TrafficManagementSystem.UI.Infrastructure.Managers;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -22,5 +19,7 @@ builder.Services.AddTransient<AuthenticationHeaderHandler>()
                 .AddHttpClient("TMS.API", client => client.BaseAddress = new Uri(builder.Configuration["ApiUrl"] + "/api/"))
                 .AddHttpMessageHandler<AuthenticationHeaderHandler>();
 builder.Services.AddHttpClientInterceptor();
+builder.Services.AddSingleton<AppStateManager>();
+builder.Services.AddTransient<AppAuthenticationStateProvider>();
 
 await builder.Build().RunAsync();

@@ -1,7 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @implements IDisposable
 @inject IJSRuntime jsRuntime
-
+@inject IAuthenticationManager _authenticationManager
 
 <MudLayout>
     <AuthorizeView>
@@ -18,10 +18,7 @@
                 <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
                 <MudText Typo="Typo.h5" Class="ml-3" Color="Color.Secondary">Traffic Management System</MudText>
                 <MudSpacer />
-                @*
-                    <UserNavCard Username="@_appStateManager.CurrentUsername"
-                    Role="@context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value"
-                    OnLogoutClick="LogoutClicked" />*@
+                <UserNavCard OnLogoutClick="LogoutClicked" />
             </MudAppBar>
             <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
                 <NavMenu />
@@ -36,9 +33,9 @@
         </Authorized>
     </AuthorizeView>
 </MudLayout>
-@*<MudOverlay Visible="_appStateManager.IsBusy" LightBackground="true" Absolute="true">
+<MudOverlay Visible="_appStateManager.IsBusy" LightBackground="true" Absolute="true">
     <MudProgressCircular Color="Color.Info" Indeterminate="true" />
-    </MudOverlay>*@
+</MudOverlay>
 
 @code {
     bool _drawerOpen = true;
@@ -46,28 +43,25 @@
 
     protected override void OnInitialized()
     {
-        //_appStateManager.OnChange += StateHasChanged;
+        _appStateManager.OnChange += StateHasChanged;
         //_httpInterceptor.RegisterEvent();
-        _navigationManager.LocationChanged += LocationChanged;
     }
     void DrawerToggle()
     {
         _drawerOpen = !_drawerOpen;
     }
 
-    async void LocationChanged(object sender, LocationChangedEventArgs eventArgs)
-    {
-        //if (_anonymousPages.All(p => !eventArgs.Location.Contains(p, StringComparison.OrdinalIgnoreCase)))
-        //    await _stateProvider.ValidateSession();
-    }
+ 
 
+    async Task LogoutClicked()
+    {
+        await _authenticationManager.Logout();
+    }
 
     public void Dispose()
     {
 
-        //_appStateManager.OnChange -= StateHasChanged;
+        _appStateManager.OnChange -= StateHasChanged;
         // _httpInterceptor.DisposeEvent();
-        _navigationManager.LocationChanged -= LocationChanged;
-
     }
 }

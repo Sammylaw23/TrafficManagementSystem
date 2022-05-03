@@ -26,14 +26,12 @@ namespace TrafficManagementSystem.UI.Infrastructure.Managers
         private readonly HttpClient _httpClient;
         private readonly ILogger<DriverManager> _logger;
         private readonly ISnackbar _snackbar;
-        private readonly IStringLocalizer<DriverManager> _localizer;
 
-        public DriverManager(HttpClient httpClient, ILogger<DriverManager> logger, ISnackbar snackbar, IStringLocalizer<DriverManager> localizer)
+        public DriverManager(HttpClient httpClient, ILogger<DriverManager> logger, ISnackbar snackbar)
         {
             _httpClient = httpClient;
             _logger = logger;
             _snackbar = snackbar;
-            _localizer = localizer;
         }
 
         public async Task<Response<DriverDto>> AddDriver(NewDriverRequest request)
@@ -68,7 +66,7 @@ namespace TrafficManagementSystem.UI.Infrastructure.Managers
             }
             catch (Exception ex)
             {
-                _snackbar.Add(_localizer["Failed to fetch drivers."], Severity.Error);
+                _snackbar.Add("Failed to fetch drivers.", Severity.Error);
                 _logger.LogError(ex.Format());
                 return new List<DriverDto>();
             }
