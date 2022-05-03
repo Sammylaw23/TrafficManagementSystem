@@ -11,8 +11,8 @@ using TrafficManagementSystem.Infrastructure.DbContexts;
 namespace TrafficManagementSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(TrafficManagementSystemDbContext))]
-    [Migration("20220503034008_EntitiesScaffold")]
-    partial class EntitiesScaffold
+    [Migration("20220503095955_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -156,6 +156,12 @@ namespace TrafficManagementSystem.Infrastructure.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTimeOffset>("DateOfBirth")
                         .HasColumnType("TEXT");
 
@@ -191,6 +197,9 @@ namespace TrafficManagementSystem.Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("LicenseNo")
                         .HasColumnType("TEXT");
 
@@ -221,6 +230,12 @@ namespace TrafficManagementSystem.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Code")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedTime")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTimeOffset>("DateCreated")
@@ -256,6 +271,12 @@ namespace TrafficManagementSystem.Infrastructure.Migrations
                     b.Property<string>("Colour")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("EngineNumber")
                         .HasColumnType("TEXT");
 
@@ -289,6 +310,9 @@ namespace TrafficManagementSystem.Infrastructure.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()

@@ -1,31 +1,23 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using TrafficManagementSystem.Domain.Entities.Identity;
+using TrafficManagementSystem.Infrastructure.Models;
 
 namespace TrafficManagementSystem.Infrastructure.Identity
 {
     public static class AppIdentityDbContextSeed
     {
-        public static async Task SeedUsersAsync(UserManager<AppUser> userManager)
+        public static async Task SeedUsersAsync(UserManager<ApplicationUser> userManager)
         {
-            var usersTempVariable = userManager.Users;
             if (!userManager.Users.Any())
             {
-                var user = new AppUser()
+                var user = new ApplicationUser
                 {
                     FirstName = "Adeola",
                     LastName = "Odeku",
-                    DisplayName = "Andrew Adigun",
-                    Email = "andrew@gmail",
-                    UserName = "andrew@gmail",
-                    Address = new Address()
-                    {
-                        FirstName = "Adeola",
-                        LastName = "Odeku",
-                        Street = "No 10 Odeku",
-                        City = "Lagos",
-                        State = "Lagos",
-                        ZipCode = "234"
-                    }
+                    Email = "andrew@gmail.com",
+                    UserName = "andrew",
+                    Address ="No 10 Odeku,Lagos",
+                    EmailConfirmed=true,
+                    
                 };
 
                 await userManager.CreateAsync(user, "Pa$$w0rd");

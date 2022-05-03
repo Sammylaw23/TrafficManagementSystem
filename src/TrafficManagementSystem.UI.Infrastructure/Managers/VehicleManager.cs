@@ -28,14 +28,12 @@ namespace TrafficManagementSystem.UI.Infrastructure.Managers
         private readonly HttpClient _httpClient;
         private readonly ILogger<VehicleManager> _logger;
         private readonly ISnackbar _snackbar;
-        private readonly IStringLocalizer<VehicleManager> _localizer;
 
-        public VehicleManager(HttpClient httpClient, ILogger<VehicleManager> logger, ISnackbar snackbar, IStringLocalizer<VehicleManager> localizer)
+        public VehicleManager(HttpClient httpClient, ILogger<VehicleManager> logger, ISnackbar snackbar)
         {
             _httpClient = httpClient;
             _logger = logger;
             _snackbar = snackbar;
-            _localizer = localizer;
         }
 
         public async Task<Response<VehicleDto>> AddVehicle(NewVehicleRequest request)
@@ -49,27 +47,25 @@ namespace TrafficManagementSystem.UI.Infrastructure.Managers
             var response = await _httpClient.DeleteAsync(Endpoints.VehicleEndpoints.DeleteVehicle(id));
             if (response.IsSuccessStatusCode)
                 return await Response.SuccessAsync();
-            var content = await response.Content.ReadFromJsonAsync<Response<string>>();
+            var content = await response.Content.ReadFromJsonAsync<Response<string?>>();
             return await Response.FailAsync(content.Messages);
         }
 
         public async Task<VehicleDto> GetVehicle(Guid id)
         {
             var response = await _httpClient.GetFromJsonAsync<Response<VehicleDto>>(Endpoints.VehicleEndpoints.GetVehicle(id));
-            if (response != null)
-                return response.Data;
-            return new VehicleDto();
+            return response == null ? new VehicleDto() : response.Data!;
         }
 
         public async Task<List<VehicleDto>> GetVehicles()
         {
             try
             {
-                return (await _httpClient.GetFromJsonAsync<Response<List<VehicleDto>>>(Endpoints.VehicleEndpoints.GetVehicles)).Data;
+                return (await _httpClient.GetFromJsonAsync<Response<List<VehicleDto>>>(Endpoints.VehicleEndpoints.GetVehicles)).Data!;
             }
             catch (Exception ex)
             {
-                _snackbar.Add(_localizer["Failed to fetch Vehicles."], Severity.Error);
+                _snackbar.Add("Failed to fetch Vehicles.", Severity.Error);
                 _logger.LogError(ex.Format());
                 return new List<VehicleDto>();
             }

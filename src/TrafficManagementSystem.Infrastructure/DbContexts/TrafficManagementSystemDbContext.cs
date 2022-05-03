@@ -8,20 +8,15 @@ namespace TrafficManagementSystem.Infrastructure.DbContexts
 {
     public class TrafficManagementSystemDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
     {
-        public TrafficManagementSystemDbContext(DbContextOptions<TrafficManagementSystemDbContext> options)
-            : base(options)
+        public TrafficManagementSystemDbContext(DbContextOptions<TrafficManagementSystemDbContext> options) : base(options)
         {
         }
-        //public TrafficManagementSystemDbContext()
-        //{
-
-        //}
+       
         public DbSet<Driver>? Drivers { get; set; }
         public DbSet<OffenceType>? OffenceTypes { get; set; }
         public DbSet<Offence>? Offences { get; set; }
         public DbSet<Vehicle>? Vehicles { get; set; }
 
-        //public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

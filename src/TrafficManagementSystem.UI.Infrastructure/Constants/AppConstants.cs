@@ -16,7 +16,7 @@ namespace TrafficManagementSystem.UI.Infrastructure.Constants
         }
         public static class Storage
         {
-            public const string AuthToken = "_token";
+            public const string AuthToken = "itknxyz";
             public const string RefreshToken = "";
         }
 

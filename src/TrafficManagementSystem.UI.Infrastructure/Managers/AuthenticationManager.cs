@@ -19,7 +19,6 @@ namespace TrafficManagementSystem.UI.Infrastructure.Managers
     {
         Task<IResponse> Login(AuthenticationRequest request);
         Task Logout();
-        //Task TryRefreshToken(bool force = false);
         Task<ClaimsPrincipal> CurrentUser();
     }
 
@@ -67,7 +66,7 @@ namespace TrafficManagementSystem.UI.Infrastructure.Managers
 
         public async Task Logout()
         {
-            await (_authenticationStateProvider as AppStateProvider).NotifyLogoutAsync();
+            await ((AppStateProvider)_authenticationStateProvider).NotifyLogoutAsync();
             _navigationManager.NavigateTo("/");
         }
 

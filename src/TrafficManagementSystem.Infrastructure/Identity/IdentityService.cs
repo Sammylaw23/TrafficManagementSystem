@@ -9,7 +9,6 @@ using TrafficManagementSystem.Application.DTOs.User;
 using TrafficManagementSystem.Application.Exceptions;
 using TrafficManagementSystem.Application.Interfaces.Services;
 using TrafficManagementSystem.Application.Wrappers;
-using TrafficManagementSystem.Domain.Entities.Identity;
 using TrafficManagementSystem.Domain.Settings;
 using TrafficManagementSystem.Infrastructure.Models;
 
