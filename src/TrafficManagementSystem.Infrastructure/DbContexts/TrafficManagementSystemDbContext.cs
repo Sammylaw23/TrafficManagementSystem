@@ -12,6 +12,10 @@ namespace TrafficManagementSystem.Infrastructure.DbContexts
             : base(options)
         {
         }
+        //public TrafficManagementSystemDbContext()
+        //{
+
+        //}
         public DbSet<Driver>? Drivers { get; set; }
         public DbSet<OffenceType>? OffenceTypes { get; set; }
         public DbSet<Offence>? Offences { get; set; }
@@ -19,13 +23,12 @@ namespace TrafficManagementSystem.Infrastructure.DbContexts
 
         //public DbSet<User> Users { get; set; }
 
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             var offenceType = modelBuilder.Entity<OffenceType>();
-            offenceType.Property(x => x.FineAmount).HasPrecision(18, 3);
+            offenceType.Property(x => x.FineAmount).HasPrecision(10, 3);
 
-
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

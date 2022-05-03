@@ -6,7 +6,7 @@ using TrafficManagementSystem.Application.Interfaces.Services;
 namespace TrafficManagementSystem.API.Controllers
 {
     [Authorize]
-    [Route("api/offenceTypes")]
+    [Route("api/offence-types")]
     [ApiController]
     public class OffenceTypesController : ControllerBase
     {

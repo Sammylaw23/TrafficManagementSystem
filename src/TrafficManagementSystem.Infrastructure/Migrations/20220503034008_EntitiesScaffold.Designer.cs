@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrafficManagementSystem.Infrastructure.DbContexts;
 
@@ -10,9 +11,10 @@ using TrafficManagementSystem.Infrastructure.DbContexts;
 namespace TrafficManagementSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(TrafficManagementSystemDbContext))]
-    partial class TrafficManagementSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220503034008_EntitiesScaffold")]
+    partial class EntitiesScaffold
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.4");

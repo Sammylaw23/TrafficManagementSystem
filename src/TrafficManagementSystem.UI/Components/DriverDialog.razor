@@ -23,13 +23,13 @@
         <DialogContent>
             <MudGrid Spacing="1" Justify="Justify.Center">
                 <MudItem xs="12">
-                    <MudTextField  Variant="@AppConstants.Designs.InputTextVariant" Label="First Name" @bind-Value="DriverModel.FirstName" For="@(() => DriverModel.FirstName)" />
+                    <MudTextField Variant="@AppConstants.Designs.InputTextVariant" Label="First Name" @bind-Value="DriverModel.FirstName" For="@(() => DriverModel.FirstName)" />
                 </MudItem>
-                <MudItem xs="12" >
+                <MudItem xs="12">
                     <MudTextField Variant="@AppConstants.Designs.InputTextVariant" Label="Last Name" @bind-Value="DriverModel.LastName" For="@(() => DriverModel.LastName)" />
                 </MudItem>
-                <MudItem xs="12" >
-                    <MudTextField  Variant="@AppConstants.Designs.InputTextVariant" Label="Phone Number" @bind-Value="DriverModel.PhoneNumber" For="@(() => DriverModel.PhoneNumber)" />
+                <MudItem xs="12">
+                    <MudTextField Variant="@AppConstants.Designs.InputTextVariant" Label="Phone Number" @bind-Value="DriverModel.PhoneNumber" For="@(() => DriverModel.PhoneNumber)" />
                 </MudItem>
                 <MudItem xs="12">
                     <MudTextField Variant="@AppConstants.Designs.InputTextVariant" Label="Email" @bind-Value="DriverModel.Email" For="@(() => DriverModel.Email)" />
@@ -65,7 +65,7 @@
         </DialogContent>
         <DialogActions>
             <MudButton Variant="@AppConstants.Designs.ButtonVariant" OnClick="Cancel">Cancel</MudButton>
-            <MudButton Variant="@AppConstants.Designs.ButtonVariant" ButtonType="ButtonType.Submit" Color="Color.Primary">Submit</MudButton>
+            <MudButton Variant="@AppConstants.Designs.ButtonVariant" ButtonType="ButtonType.Submit" Color="Color.Primary" OnClick="SubmitAsync">Submit</MudButton>
         </DialogActions>
     </MudDialog>
 </EditForm>
@@ -87,19 +87,17 @@
 
     async Task SubmitAsync()
     {
-        await Task.Delay(0);
-        Console.WriteLine("Submitted");
         //_appStateManager.IsBusy = true;
-        //var response = await _walletManager.SaveAsync(WalletForm);
+        var response = await _driverManager.AddDriver(DriverModel);
         //_appStateManager.IsBusy = false;
-        //if (response.Succeeded)
-        //{
-        //    _snackbar.Add("Wallet has been sucessfully added!", Severity.Success);
-        //    MudDialog.Close();
-        //}
-        //else
-        //{
-        //    response.ShowFailureMessages(_snackbar);
-        //}
+        if (response.Succeeded)
+        {
+            _snackbar.Add("Driver created!", Severity.Success);
+            MudDialog?.Close();
+        }
+        else
+        {
+            response.ShowFailureMessages(_snackbar);
+        }
     }
 }
