@@ -1,13 +1,8 @@
 ﻿using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Json;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using TrafficManagementSystem.Application.DTOs.User;
 using TrafficManagementSystem.Application.Wrappers;
 using TrafficManagementSystem.UI.Infrastructure.Authentication;
@@ -53,20 +48,20 @@ namespace TrafficManagementSystem.UI.Infrastructure.Managers
             if (response.IsSuccessStatusCode)
             {
                 var authenticationResponse = await response.Content.ReadFromJsonAsync<Response<AuthenticationResponse>>();
-                await ((AppStateProvider)_authenticationStateProvider).NotifyAuthenticatedAsync(authenticationResponse.Data);
+                await ((AppAuthenticationStateProvider)_authenticationStateProvider).NotifyAuthenticatedAsync(authenticationResponse!.Data!);
 
                 return await Response.SuccessAsync();
             }
             else
             {
                 var authenticationResponse = await response.Content.ReadFromJsonAsync<Response<string>>();
-                return await Response.FailAsync(authenticationResponse.Messages);
+                return await Response.FailAsync(authenticationResponse!.Messages);
             }
         }
 
         public async Task Logout()
         {
-            await ((AppStateProvider)_authenticationStateProvider).NotifyLogoutAsync();
+            await ((AppAuthenticationStateProvider)_authenticationStateProvider).NotifyLogoutAsync();
             _navigationManager.NavigateTo("/");
         }
 

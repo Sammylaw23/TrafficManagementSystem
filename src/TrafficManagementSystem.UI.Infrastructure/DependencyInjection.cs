@@ -23,7 +23,7 @@ namespace TrafficManagementSystem.UI.Infrastructure
                 //.AddLocalization(options => options.ResourcesPath = "Resources")
                 .AddMudServices()
                 .AddBlazoredLocalStorage()
-                .AddScoped<AuthenticationStateProvider, AppStateProvider>()
+                .AddScoped<AuthenticationStateProvider, AppAuthenticationStateProvider>()
                 //.AddTransient<IAuthenticationManager, AuthenticationManager>()
                 .AddManagers();
 

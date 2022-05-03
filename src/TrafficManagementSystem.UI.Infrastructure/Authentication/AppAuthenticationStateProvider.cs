@@ -9,14 +9,14 @@ using TrafficManagementSystem.UI.Infrastructure.Constants;
 
 namespace TrafficManagementSystem.UI.Infrastructure.Authentication
 {
-    public class AppStateProvider : AuthenticationStateProvider
+    public class AppAuthenticationStateProvider : AuthenticationStateProvider
     {
         private readonly ILocalStorageService _localStorage;
         private readonly HttpClient _httpClient;
         private readonly ISnackbar _snackbar;
        // private readonly ApplicationStateManager _applicationStateManager;
 
-        public AppStateProvider(
+        public AppAuthenticationStateProvider(
             ILocalStorageService localStorage,
             HttpClient httpClient,
             ISnackbar snackbar/*, ApplicationStateManager applicationStateManager*/)
@@ -56,21 +56,10 @@ namespace TrafficManagementSystem.UI.Infrastructure.Authentication
             NotifyAuthenticationStateChanged(Task.FromResult(Anonymous));
         }
 
-        public async Task ValidateSession()
-        {
-            var currentAuthState = await GetAuthenticationStateAsync();
-            if (currentAuthState == Anonymous)
-            {
-                _snackbar.Add(AppConstants.ErrorMessages.SessionTimeout, Severity.Error);
-                await NotifyLogoutAsync();
-            }
-        }
 
 
         private static List<Claim> GetClaims(string jwtToken)
         {
-            if (string.IsNullOrEmpty(jwtToken))
-                return new List<Claim>();
             string payload = jwtToken.Split(".")[1];
             byte[] jsonBytes = ParseBase64StringWithoutPadding(payload);
             var keyValuePairs = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonBytes);
