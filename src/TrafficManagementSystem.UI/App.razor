@@ -16,6 +16,23 @@
     </Router>
 </CascadingAuthenticationState>
 
-<MudThemeProvider />
+<MudThemeProvider Theme="@theme" />
 <MudDialogProvider />
 <MudSnackbarProvider />
+
+
+@code {
+
+
+    MudTheme theme = new MudTheme
+        {
+            Palette = new Palette
+            {
+                Primary = new MudBlazor.Utilities.MudColor("#120826"),
+                Secondary = new MudBlazor.Utilities.MudColor("#FF6600"),
+                AppbarBackground = new MudBlazor.Utilities.MudColor("#120826"),
+                Background = new MudBlazor.Utilities.MudColor("#F1F3F4")
+
+            }
+        };
+}

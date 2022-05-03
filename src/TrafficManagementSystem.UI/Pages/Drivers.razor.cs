@@ -1,6 +1,7 @@
 ﻿using MudBlazor;
 using TrafficManagementSystem.Application.DTOs.Driver;
 using TrafficManagementSystem.UI.Components;
+using TrafficManagementSystem.UI.Infrastructure.Extensions;
 
 namespace TrafficManagementSystem.UI.Pages
 {
@@ -9,10 +10,17 @@ namespace TrafficManagementSystem.UI.Pages
         List<DriverDto> drivers = new();
         string? searchString;
 
+        protected override async Task OnInitializedAsync()
+        {
+            await GetDrivers();
+        }
+
+        async Task GetDrivers()
+        {
+            drivers= await _driverManager.GetDrivers();
+        }
         async Task InvokeDriverDialog(Guid? id = null)
         {
-            await Task.Delay(0);
-
             var parameters = new DialogParameters();
             if (id != null)
             {
@@ -37,11 +45,38 @@ namespace TrafficManagementSystem.UI.Pages
             var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true, DisableBackdropClick = true };
             var dialog = _dialogService.Show<DriverDialog>("Driver Dialog", parameters, options);
             var result = await dialog.Result;
-            //if (!result.Cancelled)
-            //{
-            //    await _hubConnection.InvokeHubMethodAsync(ApplicationConstants.SignalR.OnWalletUpdate);
-            //}
+            if (!result.Cancelled)
+            {
+                await GetDrivers();
+                StateHasChanged();
+            }
 
+        }
+
+        async Task DeleteDriver(DriverDto driver)
+        {
+            string deleteContent = $"Delete driver ({driver.FirstName} {driver.LastName})?";
+            var parameters = new DialogParameters
+            {
+                { nameof(DeleteConfirmationDialog.ContentText), deleteContent }
+            };
+            var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall, FullWidth = true, DisableBackdropClick = true };
+            var dialog = _dialogService.Show<DeleteConfirmationDialog>("Delete", parameters, options);
+            var result = await dialog.Result;
+            if (!result.Cancelled)
+            {
+                var response = await _driverManager.DeleteDriver(driver.Id.Value);
+                if (response.Succeeded)
+                {
+                    _snackbar.Add("Driver record has been deleted successfully.", Severity.Success);
+                    await GetDrivers();
+                    StateHasChanged();
+                }
+                else
+                {
+                    response.ShowFailureMessages(_snackbar);
+                }
+            }
         }
     }
 }

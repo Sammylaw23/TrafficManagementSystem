@@ -18,15 +18,15 @@ namespace TrafficManagementSystem.Application.Services
             _repositoryProvider = repositoryProvider;
             _mapper = mapper;
         }
-        public async Task<Response<DriverDto>> AddDriverAsync(NewDriverRequest request)
+
+        public async Task SaveDriverAsync(NewDriverRequest request)
         {
-            var driver = await _repositoryProvider.DriverRepository.GetDriverByLicenseNoAsync(request.LicenseNo);
+            var driver = await _repositoryProvider.DriverRepository.GetDriverByLicenseNoAsync(request.LicenseNo!);
             if (driver != null)
                 throw new ApiException("Driver already exist.");
             driver = _mapper.Map<Driver>(request);
             await _repositoryProvider.DriverRepository.AddDriverAsync(driver);
             await _repositoryProvider.SaveChangesAsync();
-            return new Response<DriverDto>(_mapper.Map<DriverDto>(driver));
         }
 
         public async Task DeleteDriverAsync(Guid id)

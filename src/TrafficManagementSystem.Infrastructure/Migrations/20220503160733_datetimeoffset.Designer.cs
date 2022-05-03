@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrafficManagementSystem.Infrastructure.DbContexts;
 
@@ -10,9 +11,10 @@ using TrafficManagementSystem.Infrastructure.DbContexts;
 namespace TrafficManagementSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(TrafficManagementSystemDbContext))]
-    partial class TrafficManagementSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220503160733_datetimeoffset")]
+    partial class datetimeoffset
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.4");
@@ -204,9 +206,6 @@ namespace TrafficManagementSystem.Infrastructure.Migrations
                     b.Property<string>("OffenceTypeCode")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("OffenceTypeId")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("OffenderName")
                         .HasColumnType("TEXT");
 
@@ -214,8 +213,6 @@ namespace TrafficManagementSystem.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OffenceTypeId");
 
                     b.ToTable("Offences");
                 });
@@ -422,22 +419,6 @@ namespace TrafficManagementSystem.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("TrafficManagementSystem.Domain.Entities.Offence", b =>
-                {
-                    b.HasOne("TrafficManagementSystem.Domain.Entities.OffenceType", "OffenceType")
-                        .WithMany("Offences")
-                        .HasForeignKey("OffenceTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("OffenceType");
-                });
-
-            modelBuilder.Entity("TrafficManagementSystem.Domain.Entities.OffenceType", b =>
-                {
-                    b.Navigation("Offences");
                 });
 #pragma warning restore 612, 618
         }

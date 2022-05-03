@@ -3,12 +3,8 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using MudBlazor.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TrafficManagementSystem.UI.Infrastructure.Authentication;
+using TrafficManagementSystem.UI.Infrastructure.Extensions;
 using TrafficManagementSystem.UI.Infrastructure.Managers;
 
 namespace TrafficManagementSystem.UI.Infrastructure
@@ -20,11 +16,12 @@ namespace TrafficManagementSystem.UI.Infrastructure
             builder.Services
                 .AddOptions()
                 .AddAuthorizationCore()
-                //.AddLocalization(options => options.ResourcesPath = "Resources")
                 .AddMudServices()
                 .AddBlazoredLocalStorage()
                 .AddScoped<AuthenticationStateProvider, AppAuthenticationStateProvider>()
-                //.AddTransient<IAuthenticationManager, AuthenticationManager>()
+                .AddTransient<AppAuthenticationStateProvider>()
+                .AddSingleton<AppStateManager>()
+                .AddTransient<ApiInterceptor>()
                 .AddManagers();
 
             return builder;

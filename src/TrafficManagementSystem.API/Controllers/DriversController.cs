@@ -18,10 +18,10 @@ namespace TrafficManagementSystem.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddDriver(NewDriverRequest request)
+        public async Task<IActionResult> PostDriver(NewDriverRequest request)
         {
-            var response = await _driverService.AddDriverAsync(request);
-            return CreatedAtAction(nameof(GetDriver), new { id = response.Data.Id }, response);
+            await _driverService.SaveDriverAsync(request);
+            return Ok();
         }
 
 

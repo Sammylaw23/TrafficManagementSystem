@@ -1,5 +1,6 @@
 ﻿using MudBlazor;
 using TrafficManagementSystem.Application.DTOs.Offence;
+using TrafficManagementSystem.Application.DTOs.OffenceType;
 using TrafficManagementSystem.UI.Components;
 
 namespace TrafficManagementSystem.UI.Pages
@@ -8,11 +9,18 @@ namespace TrafficManagementSystem.UI.Pages
     {
         List<OffenceDto> offences = new();
         string? searchString;
+       
+        protected override async Task OnInitializedAsync()
+        {
+            await GetOffences();
+        }
 
+        async Task GetOffences()
+        {
+            offences = await _offenceManager.GetOffences();
+        }
         async Task InvokeOffenceDialog(Guid? id = null)
         {
-            await Task.Delay(0);
-
             var parameters = new DialogParameters();
             if (id != null)
             {

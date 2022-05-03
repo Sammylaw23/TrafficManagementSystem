@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TrafficManagementSystem.API.Extensions;
+using TrafficManagementSystem.API.Services;
 using TrafficManagementSystem.Application;
+using TrafficManagementSystem.Application.Interfaces.Services;
 using TrafficManagementSystem.Infrastructure;
 using TrafficManagementSystem.Infrastructure.DbContexts;
 using TrafficManagementSystem.Infrastructure.Identity;
@@ -20,17 +22,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddApplicationLayer();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddCors(options => options.AddDefaultPolicy(_builder => _builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
-
-
-
-
-
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
 
 
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

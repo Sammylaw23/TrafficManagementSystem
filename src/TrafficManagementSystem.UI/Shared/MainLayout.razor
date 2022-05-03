@@ -2,7 +2,7 @@
 @implements IDisposable
 @inject IJSRuntime jsRuntime
 @inject IAuthenticationManager _authenticationManager
-
+@inject ApiInterceptor _apiInterceptor
 <MudLayout>
     <AuthorizeView>
         <NotAuthorized>
@@ -44,7 +44,7 @@
     protected override void OnInitialized()
     {
         _appStateManager.OnChange += StateHasChanged;
-        //_httpInterceptor.RegisterEvent();
+        _apiInterceptor.RegisterEvent();
     }
     void DrawerToggle()
     {
@@ -60,8 +60,7 @@
 
     public void Dispose()
     {
-
         _appStateManager.OnChange -= StateHasChanged;
-        // _httpInterceptor.DisposeEvent();
+        _apiInterceptor.DisposeEvent();
     }
 }
