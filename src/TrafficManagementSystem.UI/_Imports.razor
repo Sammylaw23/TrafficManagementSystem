@@ -1,5 +1,6 @@
 ﻿@using System.Net.Http
 @using System.Net.Http.Json
+@using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.Forms
 @using Microsoft.AspNetCore.Components.Routing
 @using Microsoft.AspNetCore.Components.Web
@@ -14,7 +15,15 @@
 @using TrafficManagementSystem.Application.DTOs.Offence
 @using TrafficManagementSystem.Application.DTOs.OffenceType
 @using TrafficManagementSystem.Application.DTOs.Vehicle
+@using TrafficManagementSystem.UI.Infrastructure.Constants
+@using Blazored.LocalStorage
+@using Microsoft.AspNetCore.SignalR
+@using TrafficManagementSystem.UI.Infrastructure.Extensions
+@using Microsoft.AspNetCore.Components.Authorization
+@using TrafficManagementSystem.UI.Infrastructure.Managers
 
 @inject NavigationManager _navigationManager
 @inject ISnackbar _snackbar
 @inject IDialogService _dialogService
+
+@attribute [Authorize]

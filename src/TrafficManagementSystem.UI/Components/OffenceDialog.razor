@@ -25,20 +25,6 @@
             <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Plate Number" @bind-Value="OffenceModel.PlateNumber" For="@(() => OffenceModel.PlateNumber)" />
             <MudTextField Class="my-3" Variant="Variant.Outlined" Label="License Number" @bind-Value="OffenceModel.LicenseNo" For="@(() => OffenceModel.LicenseNo)" />
             <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Offence Code" @bind-Value="OffenceModel.OffenceTypeCode" For="@(() => OffenceModel.OffenceTypeCode)" />
-            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Traffic Officer" @bind-Value="OffenceModel.CreatedBy" For="@(() => OffenceModel.CreatedBy)" />
-
-
-            @{
-                // Copy select dropdown for offence code from down
-            }
-
-            <MudDatePicker Label="Report Date"
-                           @bind-Date="OffenceModel.ReportDate"
-                           DisableToolbar="true"
-                           DateFormat="dd/MM/yyyy"
-                           For="@(() => OffenceModel.ReportDate)" />
-
-
         </DialogContent>
         <DialogActions>
             <MudButton Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>

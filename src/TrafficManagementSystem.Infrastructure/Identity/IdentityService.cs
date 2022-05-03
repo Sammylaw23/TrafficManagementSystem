@@ -1,30 +1,27 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using TrafficManagementSystem.Application.DTOs.User;
 using TrafficManagementSystem.Application.Exceptions;
 using TrafficManagementSystem.Application.Interfaces.Services;
 using TrafficManagementSystem.Application.Wrappers;
 using TrafficManagementSystem.Domain.Entities.Identity;
 using TrafficManagementSystem.Domain.Settings;
+using TrafficManagementSystem.Infrastructure.Models;
 
 namespace TrafficManagementSystem.Infrastructure.Identity
 {
     public class IdentityService : IIdentityService
     {
         private readonly JWTSettings _jwtsettings;
-        private readonly UserManager<AppUser> _userManager;
-        private readonly SignInManager<AppUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public IdentityService(IOptions<JWTSettings> jwtsettings, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public IdentityService(IOptions<JWTSettings> jwtsettings, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _jwtsettings = jwtsettings.Value;
             _userManager = userManager;
@@ -46,8 +43,8 @@ namespace TrafficManagementSystem.Infrastructure.Identity
             if (!user.EmailConfirmed)
                 throw new ApiException($"Account not confirmed for '{request.Email}'.");
 
-            if (!user.Active)
-                throw new ApiException("User account is inactive.");
+            //if (!user.Active)
+            //    throw new ApiException("User account is inactive.");
           
 
             //sign token here
@@ -67,7 +64,7 @@ namespace TrafficManagementSystem.Infrastructure.Identity
             var response = new AuthenticationResponse()
             {
                 Email = user.Email,
-                DisplayName = user.DisplayName,
+                //DisplayName = user.DisplayName,
                 JWToken = tokenHandler.WriteToken(token)
             };
             //response.JWToken = GenerateToken();

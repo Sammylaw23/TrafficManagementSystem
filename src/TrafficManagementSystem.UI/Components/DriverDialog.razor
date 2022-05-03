@@ -21,35 +21,51 @@
             }
         </TitleContent>
         <DialogContent>
-            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="First Name" @bind-Value="DriverModel.FirstName" For="@(() => DriverModel.FirstName)" />
-            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Last Name" @bind-Value="DriverModel.LastName" For="@(() => DriverModel.LastName)" />
-            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Phone Number" @bind-Value="DriverModel.PhoneNumber" For="@(() => DriverModel.PhoneNumber)" />
-            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Email" @bind-Value="DriverModel.Email" For="@(() => DriverModel.Email)" />
-            <MudSelect Class="my-2"
-                       Label="Gender"
-                       T="char?"
-                       Strict="true"
-                       Variant="Variant.Outlined"
-                       @bind-Value="DriverModel.Gender"
-                       For="@(() => DriverModel.Gender)">
+            <MudGrid Spacing="1" Justify="Justify.Center">
+                <MudItem xs="12">
+                    <MudTextField  Variant="@AppConstants.Designs.InputTextVariant" Label="First Name" @bind-Value="DriverModel.FirstName" For="@(() => DriverModel.FirstName)" />
+                </MudItem>
+                <MudItem xs="12" >
+                    <MudTextField Variant="@AppConstants.Designs.InputTextVariant" Label="Last Name" @bind-Value="DriverModel.LastName" For="@(() => DriverModel.LastName)" />
+                </MudItem>
+                <MudItem xs="12" >
+                    <MudTextField  Variant="@AppConstants.Designs.InputTextVariant" Label="Phone Number" @bind-Value="DriverModel.PhoneNumber" For="@(() => DriverModel.PhoneNumber)" />
+                </MudItem>
+                <MudItem xs="12">
+                    <MudTextField Variant="@AppConstants.Designs.InputTextVariant" Label="Email" @bind-Value="DriverModel.Email" For="@(() => DriverModel.Email)" />
+                </MudItem>
+                <MudItem xs="12">
+                    <MudTextField Variant="@AppConstants.Designs.InputTextVariant" Label="License Number" @bind-Value="DriverModel.LicenseNo" For="@(() => DriverModel.LicenseNo)" />
+                </MudItem>
+                <MudItem xs="12" md="6">
+                    <MudSelect Label="Gender"
+                               T="char?"
+                               Strict="true"
+                               Variant="@AppConstants.Designs.InputTextVariant"
+                               @bind-Value="DriverModel.Gender"
+                               For="@(() => DriverModel.Gender)">
 
-                <MudSelectItem Value="@male"> Male</MudSelectItem>
-                <MudSelectItem Value="@female"> Female</MudSelectItem>
-            </MudSelect>
-            <MudDatePicker Label="Date of Birth"
-                           @bind-Date="DriverModel.DateOfBirth"
-                           DisableToolbar="true"
-                           MaxDate="@(DateTime.UtcNow.AddYears(-18))"
-                           OpenTo="@(OpenTo.Year)"
-                           DateFormat="dd/MM/yyyy"
-                           For="@(() => DriverModel.DateOfBirth)" />
-            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="License Number" @bind-Value="DriverModel.LicenseNo" For="@(() => DriverModel.LicenseNo)" />
+                        <MudSelectItem Value="@male"> Male</MudSelectItem>
+                        <MudSelectItem Value="@female"> Female</MudSelectItem>
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="12" md="6">
+                    <MudDatePicker Label="Date of Birth"
+                                   @bind-Date="DriverModel.DateOfBirth"
+                                   DisableToolbar="true"
+                                   MaxDate="@(DateTime.UtcNow.AddYears(-18))"
+                                   OpenTo="@(OpenTo.Year)"
+                                   DateFormat="dd/MM/yyyy"
+                                   For="@(() => DriverModel.DateOfBirth)" />
+                </MudItem>
+
+            </MudGrid>
 
 
         </DialogContent>
         <DialogActions>
-            <MudButton Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
-            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit" Color="Color.Primary">Submit</MudButton>
+            <MudButton Variant="@AppConstants.Designs.ButtonVariant" OnClick="Cancel">Cancel</MudButton>
+            <MudButton Variant="@AppConstants.Designs.ButtonVariant" ButtonType="ButtonType.Submit" Color="Color.Primary">Submit</MudButton>
         </DialogActions>
     </MudDialog>
 </EditForm>

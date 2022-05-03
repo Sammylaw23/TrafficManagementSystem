@@ -14,6 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 //    options.UseSqlServer(connectionString));
 builder.Services.AddApplicationLayer();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddCors(options => options.AddDefaultPolicy(_builder => _builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
 
 
@@ -65,6 +66,8 @@ app.UseSwaggerUI();
 //}
 
 app.UseHttpsRedirection();
+app.UseRouting();
+app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseApiErrorHandler();
