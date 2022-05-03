@@ -33,5 +33,17 @@ namespace TrafficManagementSystem.UI.Infrastructure.Constants
             private const string _base = "users";
             public const string Login = _base + "/login";
         }
+
+        public static class DriverEndpoints
+        {
+            private const string _base = "drivers";
+
+            public const string GetDrivers = _base;
+
+            public const string AddDriver = _base;
+
+            public static string DeleteDrivers(Guid id) =>
+                $"{_base}/{id}";
+        }
     }
 }

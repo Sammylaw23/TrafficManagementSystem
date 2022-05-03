@@ -29,7 +29,7 @@ namespace TrafficManagementSystem.Infrastructure.Identity
         }
         public async Task<Response<AuthenticationResponse>> LoginAsync(AuthenticationRequest request)
         {
-
+            var temporaryVariable = _userManager.Users.ToList();
             var user = await _userManager.FindByEmailAsync(request.Email);
             if (user == null)
                 throw new ApiException("Invalid credentials.");

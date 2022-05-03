@@ -21,6 +21,7 @@ namespace TrafficManagementSystem.Infrastructure
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+            //var connectionString = configuration.GetConnectionString("DefaultConnectionMSSQL");
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             //var connectionString = configuration.GetConnectionString("ApplicationDbConnectionString");
 
