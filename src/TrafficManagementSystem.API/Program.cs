@@ -46,9 +46,10 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-        var identityContext = serviceProvider.GetRequiredService<TrafficManagementSystemDbContext>();
-        await identityContext.Database.MigrateAsync();
+        var dbContext = serviceProvider.GetRequiredService<TrafficManagementSystemDbContext>();
+        await dbContext.Database.MigrateAsync();
         await AppIdentityDbContextSeed.SeedUsersAsync(userManager);
+        await AppIdentityDbContextSeed.SeedOffenceTypes(dbContext);
     }
     catch (Exception ex)
     {

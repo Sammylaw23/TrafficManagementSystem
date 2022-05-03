@@ -21,9 +21,6 @@
                           Adornment="Adornment.End"
                           AdornmentIcon="@passwordInputIcon"
                           OnAdornmentClick="TogglePasswordVisibility" />
-            @*<div Class="d-flex justify-space-between">
-                <MudLink Href="/authentication/reset-password"><small>Forgot Password?</small></MudLink>
-                </div>*@
         </MudCardContent>
         <MudCardActions Class="pa-4 mb-5">
             <MudButton Class="mb-4" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Size="Size.Large" Color="Color.Primary" FullWidth="true">Sign In</MudButton>
@@ -37,8 +34,6 @@
     bool passwordVisibility;
     string passwordInputIcon = Icons.Material.Filled.VisibilityOff;
     InputType passwordInputType = InputType.Password;
-    //AuthenticationState authenticationState;
-
 
 
     protected override async Task OnInitializedAsync()

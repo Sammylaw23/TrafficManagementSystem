@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using TrafficManagementSystem.Application.DTOs.User;
 using TrafficManagementSystem.UI.Infrastructure.Constants;
+using TrafficManagementSystem.UI.Infrastructure.Managers;
 
 namespace TrafficManagementSystem.UI.Infrastructure.Authentication
 {
@@ -14,20 +15,19 @@ namespace TrafficManagementSystem.UI.Infrastructure.Authentication
         private readonly ILocalStorageService _localStorage;
         private readonly HttpClient _httpClient;
         private readonly ISnackbar _snackbar;
-       // private readonly ApplicationStateManager _applicationStateManager;
+        private readonly AppStateManager _applicationStateManager;
 
         public AppAuthenticationStateProvider(
             ILocalStorageService localStorage,
             HttpClient httpClient,
-            ISnackbar snackbar/*, ApplicationStateManager applicationStateManager*/)
+            ISnackbar snackbar, AppStateManager applicationStateManager)
         {
             _localStorage = localStorage;
             _httpClient = httpClient;
             _snackbar = snackbar;
-            //_applicationStateManager=applicationStateManager;
+            _applicationStateManager=applicationStateManager;
         }
 
-        //public string CurrentUsername { get; private set; }
         public static AuthenticationState Anonymous { get; set; } = new(new ClaimsPrincipal(new ClaimsPrincipal()));
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
@@ -35,12 +35,13 @@ namespace TrafficManagementSystem.UI.Infrastructure.Authentication
             var token = await _localStorage.GetItemAsStringAsync(AppConstants.Storage.AuthToken);
             if (string.IsNullOrEmpty(token))
             {
+                _applicationStateManager.CurrentUsername=null;
                 return Anonymous;
             }
 
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
             var claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(GetClaims(token), "jwt"));
-           // _applicationStateManager.CurrentUsername = claimsPrincipal.FindFirst("username")?.Value;
+            _applicationStateManager.CurrentUsername = claimsPrincipal.FindFirst("username")?.Value;
             return new AuthenticationState(claimsPrincipal);
         }
 
