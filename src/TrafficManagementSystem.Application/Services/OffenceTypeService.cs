@@ -18,7 +18,7 @@ namespace TrafficManagementSystem.Application.Services
             _repositoryProvider = repositoryProvider;
             _mapper = mapper;
         }
-        public async Task<Response<OffenceTypeDto>> AddOffenceTypeAsync(NewOffenceTypeRequest request)
+        public async Task SaveOffenceTypeAsync(NewOffenceTypeRequest request)
         {
             var offenceType = await _repositoryProvider.OffenceTypeRepository.GetOffenceTypeByCodeAsync(request.Code);
             if (offenceType != null)
@@ -26,9 +26,7 @@ namespace TrafficManagementSystem.Application.Services
             offenceType = _mapper.Map<OffenceType>(request);
             await _repositoryProvider.OffenceTypeRepository.AddOffenceTypeAsync(offenceType);
             await _repositoryProvider.SaveChangesAsync();
-            return new Response<OffenceTypeDto>(_mapper.Map<OffenceTypeDto>(offenceType));
         }
-
         public async Task DeleteOffenceTypeAsync(Guid id)
         {
             var offenceType = await _repositoryProvider.OffenceTypeRepository.GetOffenceTypeByIdAsync(id);

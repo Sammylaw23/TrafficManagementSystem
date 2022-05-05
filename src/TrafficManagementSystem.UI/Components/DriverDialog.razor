@@ -91,6 +91,7 @@
         _appStateManager.IsBusy = false;
         if (response.Succeeded)
         {
+            _snackbar.Add("Driver created!", Severity.Success);
             MudDialog?.Close();
         }
         else

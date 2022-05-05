@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation.Results;
 using TrafficManagementSystem.Application.DTOs.Offence;
 using TrafficManagementSystem.Application.Exceptions;
 using TrafficManagementSystem.Application.Interfaces;
@@ -18,7 +19,7 @@ namespace TrafficManagementSystem.Application.Services
             _repositoryProvider = repositoryProvider;
             _mapper = mapper;
         }
-        public async Task AddOffenceAsync(NewOffenceRequest request)
+        public async Task<Response<OffenceDto>> SaveOffenceAsync(NewOffenceRequest request)
         {
             //TODO: Rethink this logic so that the same offence will not be entered twice and so that two 
             //different offences will not be seen as the same offence
@@ -34,20 +35,29 @@ namespace TrafficManagementSystem.Application.Services
             //check if license is valid on Drivers table
             var licenseIsValid = await _repositoryProvider.DriverRepository.LicenseIsValid(request.LicenseNo);
             if (!licenseIsValid)
-                response.Messages.Add($"Invalid license number");
+                response.Messages.Add($"License number is invalid or does not exist");
 
             //check if plateNumber is valid on Vehicles table
             var plateNumberIsValid = await _repositoryProvider.VehicleRepository.PlateNumberIsValid(request.PlateNumber);
             if (!plateNumberIsValid)
-                response.Messages.Add($"Invalid plate number");
+                response.Messages.Add($"Plate number is invalid or does not exist");
 
             var offence = _mapper.Map<Offence>(request);
-           
-            //offence.OffenceTypeId = offenceType.Id; //TODO:Revisit this
+
+            if (response.Messages.Count > 0)
+            {
+                var possibleErrorVariables = $"{nameof(licenseIsValid)} | {nameof(plateNumberIsValid)}";
+                var validationFailures = new List<ValidationFailure>();
+                foreach (var error in response.Messages)
+                    validationFailures.Add(new ValidationFailure(possibleErrorVariables, error));
+                throw new ValidationException(validationFailures);
+            }
 
             await _repositoryProvider.OffenceRepository.AddOffenceAsync(offence);
             await _repositoryProvider.SaveChangesAsync();
-           
+            return response;
+
+
         }
 
         public async Task DeleteOffenceAsync(Guid id)

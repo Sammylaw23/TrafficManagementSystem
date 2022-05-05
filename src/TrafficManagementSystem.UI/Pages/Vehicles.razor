@@ -48,8 +48,8 @@
         <MudTd DataLabel="Actions" Style="text-align: right">
 
             <MudMenu Label="Actions" Variant="Variant.Filled" DisableElevation="true" EndIcon="@Icons.Filled.KeyboardArrowDown" IconColor="Color.Secondary" Direction="Direction.Left" OffsetX="true">
-                                <MudMenuItem @onclick="@(() => InvokeVehicleDialog(context.Id))">Edit Vehicle</MudMenuItem>
-                
+                <MudMenuItem @onclick="@(() => InvokeVehicleDialog(context.Id))">Edit Vehicle</MudMenuItem>
+                <MudMenuItem @onclick="@(() => DeleteVehicle(context))">Delete</MudMenuItem>
             </MudMenu>
 
         </MudTd>

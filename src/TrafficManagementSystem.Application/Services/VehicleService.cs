@@ -18,7 +18,7 @@ namespace TrafficManagementSystem.Application.Services
             _repositoryProvider = repositoryProvider;
             _mapper = mapper;
         }
-        public async Task<Response<VehicleDto>> AddVehicleAsync(NewVehicleRequest request)
+        public async Task SaveVehicleAsync(NewVehicleRequest request)
         {
             //var vehicle = await _repositoryProvider.VehicleRepository.GetVehicleByPlateNumberAsync(request.PlateNumber);
             //if (vehicle != null)
@@ -28,7 +28,6 @@ namespace TrafficManagementSystem.Application.Services
             var vehicle = _mapper.Map<Vehicle>(request);
             await _repositoryProvider.VehicleRepository.AddVehicleAsync(vehicle);
             await _repositoryProvider.SaveChangesAsync();
-            return new Response<VehicleDto>(_mapper.Map<VehicleDto>(vehicle));
         }
 
         public async Task DeleteVehicleAsync(Guid id)
