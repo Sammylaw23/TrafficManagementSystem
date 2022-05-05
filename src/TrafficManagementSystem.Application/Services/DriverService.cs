@@ -21,11 +21,21 @@ namespace TrafficManagementSystem.Application.Services
 
         public async Task SaveDriverAsync(NewDriverRequest request)
         {
-            var driver = await _repositoryProvider.DriverRepository.GetDriverByLicenseNoAsync(request.LicenseNo!);
-            if (driver != null)
-                throw new ApiException("Driver already exist.");
-            driver = _mapper.Map<Driver>(request);
-            await _repositoryProvider.DriverRepository.AddDriverAsync(driver);
+            if (request.Id != null)
+            {
+                var existingDriver = await _repositoryProvider.DriverRepository.GetDriverByIdAsync(request.Id);
+                var dbDriver = _mapper.Map(request, existingDriver);
+                _repositoryProvider.DriverRepository.UpdateDriver(dbDriver);
+            }
+            else
+            {
+                var driver = await _repositoryProvider.DriverRepository.GetDriverByLicenseNoAsync(request.LicenseNo!);
+                if (driver != null)
+                    throw new ApiException("Driver already exist.");
+                driver = _mapper.Map<Driver>(request);
+                await _repositoryProvider.DriverRepository.AddDriverAsync(driver);
+            }
+
             await _repositoryProvider.SaveChangesAsync();
         }
 

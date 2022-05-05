@@ -13,7 +13,7 @@ namespace TrafficManagementSystem.Infrastructure.Persistence.Repositories
 
         public async Task AddDriverAsync(Driver driver) => await AddAsync(driver);
 
-        public async Task<Driver> GetDriverByIdAsync(Guid id) => await GetByIdAsync(id);
+        public async Task<Driver> GetDriverByIdAsync(Guid? id) => await GetByIdAsync(id);
         public async Task<IEnumerable<Driver>> GetDriversAsync() => await Get().ToListAsync();
 
         public void UpdateDriver(Driver driver) => Update(driver);

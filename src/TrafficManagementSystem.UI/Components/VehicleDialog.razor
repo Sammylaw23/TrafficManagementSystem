@@ -29,17 +29,17 @@
                 <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Brand" @bind-Value="VehicleModel.Brand" For="@(() => VehicleModel.Brand)" />
                 <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Plate Number" @bind-Value="VehicleModel.PlateNumber" For="@(() => VehicleModel.PlateNumber)" />
                 <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Engine Number" @bind-Value="VehicleModel.EngineNumber" For="@(() => VehicleModel.EngineNumber)" />
-                <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Engine Number" @bind-Value="VehicleModel.ChassisNo" For="@(() => VehicleModel.ChassisNo)" />
+                <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Chassis Number" @bind-Value="VehicleModel.ChassisNo" For="@(() => VehicleModel.ChassisNo)" />
                 <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Owner" @bind-Value="VehicleModel.Owner" For="@(() => VehicleModel.Owner)" />
                 <MudItem xs="12" md="6">
-                        <MudDatePicker Label="Date of Birth"
-                                       @bind-Date="VehicleModel.RegistrationDate"
-                                       DisableToolbar="true"
-                                       MaxDate="@(DateTime.UtcNow)"
-                                       MinDate="@(DateTime.UtcNow.AddYears(-80))"
-                                       OpenTo="@(OpenTo.Year)"
-                                       DateFormat="dd/MM/yyyy"
-                                       For="@(() => VehicleModel.RegistrationDate)" />
+                    <MudDatePicker Label="Registration Date"
+                                   @bind-Date="VehicleModel.RegistrationDate"
+                                   DisableToolbar="true"
+                                   MaxDate="@(DateTime.UtcNow)"
+                                   MinDate="@(DateTime.UtcNow.AddYears(-80))"
+                                   OpenTo="@(OpenTo.Year)"
+                                   DateFormat="dd/MM/yyyy"
+                                   For="@(() => VehicleModel.RegistrationDate)" />
                 </MudItem>
             </MudContainer>
 
@@ -72,7 +72,11 @@
         //_appStateManager.IsBusy = false;
         if (response.Succeeded)
         {
-            _snackbar.Add("Vehicle created!", Severity.Success);
+            if (VehicleModel.Id == null)
+                _snackbar.Add("Vehicle created!", Severity.Success);
+            else
+                _snackbar.Add("Vehicle modified!", Severity.Success);
+
             MudDialog?.Close();
         }
         else

@@ -19,6 +19,15 @@ namespace TrafficManagementSystem.Application.Services
             _repositoryProvider = repositoryProvider;
             _mapper = mapper;
         }
+
+        private async Task<Response<OffenceDto>> UpdateExistingOffence(NewOffenceRequest request)
+        {
+            var existingOffence = await _repositoryProvider.OffenceRepository.GetOffenceByIdAsync(request.Id);
+            var dbOffence = _mapper.Map(request, existingOffence);
+            _repositoryProvider.OffenceRepository.UpdateOffence(dbOffence);
+            await _repositoryProvider.SaveChangesAsync();
+            return new Response<OffenceDto>(_mapper.Map<OffenceDto>(dbOffence));
+        }
         public async Task<Response<OffenceDto>> SaveOffenceAsync(NewOffenceRequest request)
         {
             //TODO: Rethink this logic so that the same offence will not be entered twice and so that two 
@@ -27,6 +36,10 @@ namespace TrafficManagementSystem.Application.Services
             //var offence = await _repositoryProvider.OffenceRepository.GetOffenceByLicenseNumberAsync(request.LicenseNo); //TODO: This is wrong
             //if (offence != null)
             //    throw new ApiException($"Offence already exist!");
+
+            if (request.Id != null)
+                return await UpdateExistingOffence(request);
+
             var offenceType = await _repositoryProvider.OffenceTypeRepository.GetOffenceTypeByCodeAsync(request.OffenceTypeCode);
             if (offenceType == null)
                 throw new NotFoundException($"OffenceTypeCode does not exist!");

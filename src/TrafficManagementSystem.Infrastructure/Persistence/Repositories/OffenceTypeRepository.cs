@@ -12,7 +12,7 @@ namespace TrafficManagementSystem.Infrastructure.Persistence.Repositories
         }
 
         public async Task AddOffenceTypeAsync(OffenceType offenceType) => await AddAsync(offenceType);
-        public async Task<OffenceType> GetOffenceTypeByIdAsync(Guid id) => await GetByIdAsync(id);
+        public async Task<OffenceType> GetOffenceTypeByIdAsync(Guid? id) => await GetByIdAsync(id);
 
         public async Task<IEnumerable<OffenceType>> GetOffenceTypesAsync() => await Get().ToListAsync();
 

@@ -20,13 +20,20 @@ namespace TrafficManagementSystem.Application.Services
         }
         public async Task SaveVehicleAsync(NewVehicleRequest request)
         {
-            //var vehicle = await _repositoryProvider.VehicleRepository.GetVehicleByPlateNumberAsync(request.PlateNumber);
-            //if (vehicle != null)
-            //    throw new ApiException("Vehicle already exist.");
-            if (await VehicleExists(request))
-                throw new ApiException("Vehicle already exist.");
-            var vehicle = _mapper.Map<Vehicle>(request);
-            await _repositoryProvider.VehicleRepository.AddVehicleAsync(vehicle);
+            if (request.Id != null)
+            {
+                var existingVehicle = await _repositoryProvider.VehicleRepository.GetVehicleByIdAsync(request.Id);
+                var dbVehicle = _mapper.Map(request, existingVehicle);
+                _repositoryProvider.VehicleRepository.UpdateVehicle(dbVehicle);
+            }
+            else
+            {
+                if (await VehicleExists(request))
+                    throw new ApiException("Vehicle already exist.");
+                var vehicle = _mapper.Map<Vehicle>(request);
+                await _repositoryProvider.VehicleRepository.AddVehicleAsync(vehicle);
+            }
+
             await _repositoryProvider.SaveChangesAsync();
         }
 

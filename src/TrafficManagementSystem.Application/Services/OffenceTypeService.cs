@@ -20,12 +20,22 @@ namespace TrafficManagementSystem.Application.Services
         }
         public async Task SaveOffenceTypeAsync(NewOffenceTypeRequest request)
         {
-            var offenceType = await _repositoryProvider.OffenceTypeRepository.GetOffenceTypeByCodeAsync(request.Code);
-            if (offenceType != null)
-                throw new ApiException($"OffenceType already exist with code: {request.Code}.");
-            offenceType = _mapper.Map<OffenceType>(request);
-            await _repositoryProvider.OffenceTypeRepository.AddOffenceTypeAsync(offenceType);
+            if (request.Id != null)
+            {
+                var existingOffenceType = await _repositoryProvider.OffenceTypeRepository.GetOffenceTypeByIdAsync(request.Id);
+                var dbOffenceType = _mapper.Map(request, existingOffenceType);
+                _repositoryProvider.OffenceTypeRepository.UpdateOffenceType(dbOffenceType); 
+            }
+            else
+            {
+                var offenceType = await _repositoryProvider.OffenceTypeRepository.GetOffenceTypeByCodeAsync(request.Code);
+                if (offenceType != null)
+                    throw new ApiException($"OffenceType already exist with code: {request.Code}.");
+                offenceType = _mapper.Map<OffenceType>(request);
+                await _repositoryProvider.OffenceTypeRepository.AddOffenceTypeAsync(offenceType);
+            }
             await _repositoryProvider.SaveChangesAsync();
+
         }
         public async Task DeleteOffenceTypeAsync(Guid id)
         {
