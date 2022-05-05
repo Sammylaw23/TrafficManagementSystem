@@ -2,7 +2,7 @@
 @inject IOffenceTypeManager _offenceTypeManager;
 
 <HeroTitle Title="Offence Type" Description="Manage Offence Type Detail" />
-<MudTable Items="@offenceTypes" Hover="true" Striped="true">
+<MudTable Items="@offenceTypes" Hover="true" Striped="true" Filter="new Func<OffenceTypeDto,bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1">
     <ToolBarContent>
         <MudHidden Breakpoint="Breakpoint.Xs">
 

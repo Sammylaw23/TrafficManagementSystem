@@ -10,6 +10,25 @@ namespace TrafficManagementSystem.UI.Pages
         List<OffenceTypeDto> offenceTypes = new();
         string? searchString;
 
+        private OffenceTypeDto selectedItem1 = null;
+
+        private bool FilterFunc1(OffenceTypeDto element) => FilterFunc(element, searchString);
+
+        private bool FilterFunc(OffenceTypeDto element, string searchString)
+        {
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+            if (element.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Code.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Category.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Point.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            
+            return false;
+        }
         protected override async Task OnInitializedAsync()
         {
             await GetOffenceTypes();

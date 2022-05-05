@@ -10,6 +10,33 @@ namespace TrafficManagementSystem.UI.Pages
         List<VehicleDto> vehicles = new();
         string? searchString;
 
+        private VehicleDto selectedItem1 = null;
+
+        private bool FilterFunc1(VehicleDto element) => FilterFunc(element, searchString);
+
+        private bool FilterFunc(VehicleDto element, string searchString)
+        {
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+            if (element.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Owner.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.PlateNumber.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Model.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.EngineNumber.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Colour.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.ChassisNo.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            //if ($"{element.Brand} {element.Model}".Contains(searchString))
+            //    return true;
+            return false;
+        }
+
         async Task GetVehicles()
         {
             vehicles = await _vehicleManager.GetVehicles();

@@ -1,7 +1,7 @@
 ﻿@page "/vehicles"
 
 <HeroTitle Title="Vehicles" Description="Manage Vehicles Detail" />
-<MudTable Items="@vehicles" Hover="true" Striped="true">
+<MudTable Items="@vehicles" Hover="true" Striped="true" Filter="new Func<VehicleDto,bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1">
     <ToolBarContent>
         <MudHidden Breakpoint="Breakpoint.Xs">
 
