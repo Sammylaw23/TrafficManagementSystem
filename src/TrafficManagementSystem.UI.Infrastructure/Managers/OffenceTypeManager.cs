@@ -16,7 +16,7 @@ namespace TrafficManagementSystem.UI.Infrastructure.Managers
 {
     public interface IOffenceTypeManager
     {
-        Task<Response<OffenceTypeDto>> AddOffenceType(NewOffenceTypeRequest request);
+        Task<IResponse> AddOffenceType(NewOffenceTypeRequest request);
         Task<List<OffenceTypeDto>> GetOffenceTypes();
         Task<OffenceTypeDto> GetOffenceType(Guid id);
         Task<IResponse> DeleteOffenceType(Guid id);
@@ -34,11 +34,15 @@ namespace TrafficManagementSystem.UI.Infrastructure.Managers
             _snackbar = snackbar;
         }
 
-        public async Task<Response<OffenceTypeDto>> AddOffenceType(NewOffenceTypeRequest request)
+        public async Task<IResponse> AddOffenceType(NewOffenceTypeRequest request)
         {
             var response = await _httpClient.PostAsJsonAsync(Endpoints.OffenceTypeEndpoints.AddOffenceType, request);
-            return await response.Content.ReadFromJsonAsync<Response<OffenceTypeDto>>();
+            if (response.IsSuccessStatusCode)
+                return await Response.SuccessAsync();
+            var content = await response.Content.ReadFromJsonAsync<Response<string>>();
+            return await Response.FailAsync(content.Messages);
         }
+
 
         public async Task<IResponse> DeleteOffenceType(Guid id)
         {

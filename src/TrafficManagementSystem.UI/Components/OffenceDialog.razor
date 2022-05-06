@@ -72,7 +72,10 @@
         _appStateManager.IsBusy = false;
         if (response.Succeeded)
         {
-            _snackbar.Add("Offence created!", Severity.Success);
+            if (OffenceModel.Id == null)
+                _snackbar.Add("Offence created!", Severity.Success);
+            else
+                _snackbar.Add("Offence modified!", Severity.Success);
             MudDialog?.Close();
         }
         else

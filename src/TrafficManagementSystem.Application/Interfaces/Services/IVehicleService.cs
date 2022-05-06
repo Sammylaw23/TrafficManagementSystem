@@ -5,7 +5,7 @@ namespace TrafficManagementSystem.Application.Interfaces.Services
 {
     public interface IVehicleService
     {
-        Task<Response<VehicleDto>> AddVehicleAsync(NewVehicleRequest request);
+        Task SaveVehicleAsync(NewVehicleRequest request);
         Task<Response<VehicleDto>> GetVehicleById(Guid id);
         Task<Response<IEnumerable<VehicleDto>>> GetAllVehicles();
         Task DeleteVehicleAsync(Guid id);

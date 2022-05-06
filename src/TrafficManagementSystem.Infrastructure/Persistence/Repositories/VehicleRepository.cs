@@ -15,7 +15,7 @@ namespace TrafficManagementSystem.Infrastructure.Persistence.Repositories
 
         public async Task AddVehicleAsync(Vehicle vehicle) => await AddAsync(vehicle);
 
-        public async Task<Vehicle> GetVehicleByIdAsync(Guid id) => await GetByIdAsync(id);
+        public async Task<Vehicle> GetVehicleByIdAsync(Guid? id) => await GetByIdAsync(id);
 
         public async Task<IEnumerable<Vehicle>> GetVehiclesAsync() => await Get().ToListAsync();
 

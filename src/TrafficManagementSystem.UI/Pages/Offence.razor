@@ -1,7 +1,7 @@
 ﻿@page "/offences"
 
 <HeroTitle Title="Offences" Description="Manage Offences Detail" />
-<MudTable Items="@offences" Hover="true" Striped="true">
+<MudTable Items="@offences" Hover="true" Striped="true" Filter="new Func<OffenceDto,bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1">
     <ToolBarContent>
         <MudHidden Breakpoint="Breakpoint.Xs">
 
@@ -25,7 +25,7 @@
 
     </ToolBarContent>
     <HeaderContent>
-        <MudTh>OffenderName</MudTh>
+        <MudTh>Offender Name</MudTh>
         <MudTh>License Number</MudTh>
         <MudTh>Plate Number</MudTh>
         <MudTh>Offence Logged By</MudTh>
@@ -42,8 +42,8 @@
         <MudTd DataLabel="Actions" Style="text-align: right">
 
             <MudMenu Label="Actions" Variant="Variant.Filled" DisableElevation="true" EndIcon="@Icons.Filled.KeyboardArrowDown" IconColor="Color.Secondary" Direction="Direction.Left" OffsetX="true">
-                                <MudMenuItem @onclick="@(() => InvokeOffenceDialog(context.Id))">Edit Offence</MudMenuItem>
-                
+                <MudMenuItem @onclick="@(() => InvokeOffenceDialog(context.Id))">Edit Offence</MudMenuItem>
+                <MudMenuItem @onclick="@(() => DeleteOffence(context))">Delete</MudMenuItem>
             </MudMenu>
 
         </MudTd>

@@ -18,7 +18,7 @@ namespace TrafficManagementSystem.UI.Infrastructure.Managers
 
     public interface IVehicleManager
     {
-        Task<Response<VehicleDto>> AddVehicle(NewVehicleRequest request);
+        Task<IResponse> AddVehicle(NewVehicleRequest request);
         Task<List<VehicleDto>> GetVehicles();
         Task<VehicleDto> GetVehicle(Guid id);
         Task<IResponse> DeleteVehicle(Guid id);
@@ -36,10 +36,13 @@ namespace TrafficManagementSystem.UI.Infrastructure.Managers
             _snackbar = snackbar;
         }
 
-        public async Task<Response<VehicleDto>> AddVehicle(NewVehicleRequest request)
+        public async Task<IResponse> AddVehicle(NewVehicleRequest request)
         {
             var response = await _httpClient.PostAsJsonAsync(Endpoints.VehicleEndpoints.AddVehicle, request);
-            return await response.Content.ReadFromJsonAsync<Response<VehicleDto>>();
+            if (response.IsSuccessStatusCode)
+                return await Response.SuccessAsync();
+            var content = await response.Content.ReadFromJsonAsync<Response<string>>();
+            return await Response.FailAsync(content.Messages);
         }
 
         public async Task<IResponse> DeleteVehicle(Guid id)

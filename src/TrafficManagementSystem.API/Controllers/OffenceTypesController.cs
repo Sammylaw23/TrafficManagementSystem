@@ -6,7 +6,7 @@ using TrafficManagementSystem.Application.Interfaces.Services;
 namespace TrafficManagementSystem.API.Controllers
 {
     [Authorize]
-    [Route("api/offence-types")]
+    [Route("api/offencetypes")]
     [ApiController]
     public class OffenceTypesController : ControllerBase
     {
@@ -18,10 +18,10 @@ namespace TrafficManagementSystem.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddOffence(NewOffenceTypeRequest request)
+        public async Task<IActionResult> PostOffenceType(NewOffenceTypeRequest request)
         {
-            var response = await _offenceTypeService.AddOffenceTypeAsync(request);
-            return CreatedAtAction(nameof(GetOffence), new { id = response.Data.Id }, response);
+            await _offenceTypeService.SaveOffenceTypeAsync(request);
+            return Ok();
         }
 
 
@@ -29,10 +29,10 @@ namespace TrafficManagementSystem.API.Controllers
         public async Task<IActionResult> GetOffenceTypes() => Ok(await _offenceTypeService.GetAllOffenceTypes());
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetOffence([FromRoute] Guid id) => Ok(await _offenceTypeService.GetOffenceTypeById(id));
+        public async Task<IActionResult> GetOffenceType([FromRoute] Guid id) => Ok(await _offenceTypeService.GetOffenceTypeById(id));
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteOffence(Guid id)
+        public async Task<IActionResult> DeleteOffenceType(Guid id)
         {
             await _offenceTypeService.DeleteOffenceTypeAsync(id);
             return NoContent();

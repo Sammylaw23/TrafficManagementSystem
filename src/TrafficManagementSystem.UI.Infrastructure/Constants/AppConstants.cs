@@ -75,7 +75,7 @@ namespace TrafficManagementSystem.UI.Infrastructure.Constants
         }
         public static class OffenceTypeEndpoints
         {
-            private const string _base = "offence-types";
+            private const string _base = "offencetypes";
 
             public const string GetOffenceTypes = _base;
 
