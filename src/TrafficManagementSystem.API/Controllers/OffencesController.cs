@@ -18,9 +18,9 @@ namespace TrafficManagementSystem.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddOffence(NewOffenceRequest request)
+        public async Task<IActionResult> PostOffence(NewOffenceRequest request)
         {
-             await _offenceService.AddOffenceAsync(request);
+            await _offenceService.SaveOffenceAsync(request);
             return Ok();
         }
 

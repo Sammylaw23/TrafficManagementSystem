@@ -6,7 +6,7 @@ namespace TrafficManagementSystem.Application.Interfaces.Repositories
     {
         Task AddVehicleAsync(Vehicle vehicle);
         void UpdateVehicle(Vehicle vehicle);
-        Task<Vehicle> GetVehicleByIdAsync(Guid id);
+        Task<Vehicle> GetVehicleByIdAsync(Guid? id);
         Task<IEnumerable<Vehicle>> GetVehiclesAsync();
         void DeleteVehicle(Vehicle vehicle);
         Task<Vehicle> GetVehicleByPlateNumberAsync(string plateNumber);

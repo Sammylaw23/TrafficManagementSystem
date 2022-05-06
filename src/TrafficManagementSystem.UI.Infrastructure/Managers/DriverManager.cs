@@ -36,7 +36,6 @@ namespace TrafficManagementSystem.UI.Infrastructure.Managers
 
         public async Task<IResponse> AddDriver(NewDriverRequest request)
         {
-            Console.WriteLine("Add driver called.");
             var response = await _httpClient.PostAsJsonAsync(Endpoints.DriverEndpoints.AddDriver, request);
             if (response.IsSuccessStatusCode)
                 return await Response.SuccessAsync();

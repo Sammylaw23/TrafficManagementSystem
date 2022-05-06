@@ -1,7 +1,7 @@
 ﻿@page "/drivers"
 
 <HeroTitle Title="Drivers" Description="Manage Drivers Detail" />
-<MudTable Items="@drivers" Hover="true" Striped="true">
+<MudTable Items="@drivers" Hover="true" Striped="true" Filter="new Func<DriverDto,bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1">
     <ToolBarContent>
         <MudHidden Breakpoint="Breakpoint.Xs">
 

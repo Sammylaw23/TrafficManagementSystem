@@ -6,7 +6,7 @@ using TrafficManagementSystem.Application.Interfaces.Services;
 namespace TrafficManagementSystem.API.Controllers
 {
     [Authorize]
-    [Route("api/vehicle")]
+    [Route("api/vehicles")]
     [ApiController]
     public class VehiclesController : ControllerBase
     {
@@ -18,10 +18,10 @@ namespace TrafficManagementSystem.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddVehicle(NewVehicleRequest request)
+        public async Task<IActionResult> PostVehicle(NewVehicleRequest request)
         {
-            var response = await _vehicleService.AddVehicleAsync(request);
-            return CreatedAtAction(nameof(GetVehicle), new { id = response.Data.Id }, response);
+            await _vehicleService.SaveVehicleAsync(request);
+            return Ok();
         }
 
 

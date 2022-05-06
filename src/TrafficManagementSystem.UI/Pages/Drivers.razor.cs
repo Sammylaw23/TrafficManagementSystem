@@ -10,6 +10,29 @@ namespace TrafficManagementSystem.UI.Pages
         List<DriverDto> drivers = new();
         string? searchString;
 
+        private DriverDto selectedItem1 = null;
+           
+        private bool FilterFunc1(DriverDto element) => FilterFunc(element, searchString);
+
+        private bool FilterFunc(DriverDto element, string searchString)
+        {
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+            if (element.FirstName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.LastName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Email.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.PhoneNumber.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.LicenseNo.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if ($"{element.FirstName} {element.LastName}".Contains(searchString))
+                return true;
+            return false;
+        }
+
         protected override async Task OnInitializedAsync()
         {
             await GetDrivers();
