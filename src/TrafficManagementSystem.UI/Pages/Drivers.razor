@@ -12,7 +12,13 @@
                        IconColor="Color.Surface">
                 Add Driver
             </MudButton>
-
+            @*<MudButton DisableElevation Variant="Variant.Filled"
+                       OnClick="@(()=> DownloadDriverExcel(drivers))"
+                       Color="Color.Primary"
+                       StartIcon="@Icons.Material.Filled.PersonAdd"
+                       IconColor="Color.Surface">
+                Download Excel
+            </MudButton>*@
             <MudSpacer />
         </MudHidden>
 
@@ -55,3 +61,15 @@
     </RowTemplate>
 </MudTable>
 
+@*@code {
+    MemoryStream excelStream;
+
+    /// <summary>
+    /// Create and download the Excel document.
+    /// </summary>
+    protected async void CreateDocument()
+    {
+        excelStream = service.CreateExcel();
+        await JS.SaveAs("Sample.xlsx", excelStream.ToArray());
+    }
+}*@

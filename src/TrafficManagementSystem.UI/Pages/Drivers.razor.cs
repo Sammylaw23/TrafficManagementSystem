@@ -9,9 +9,10 @@ namespace TrafficManagementSystem.UI.Pages
     {
         List<DriverDto> drivers = new();
         string? searchString;
+        MemoryStream excelStream;
 
         private DriverDto selectedItem1 = null;
-           
+
         private bool FilterFunc1(DriverDto element) => FilterFunc(element, searchString);
 
         private bool FilterFunc(DriverDto element, string searchString)
@@ -40,27 +41,27 @@ namespace TrafficManagementSystem.UI.Pages
 
         async Task GetDrivers()
         {
-            drivers= await _driverManager.GetDrivers();
+            drivers = await _driverManager.GetDrivers();
         }
         async Task InvokeDriverDialog(Guid? id = null)
         {
             var parameters = new DialogParameters();
             if (id != null)
             {
-                var driver = drivers.FirstOrDefault(d => d.Id==id.Value);
-                if (driver!=null)
+                var driver = drivers.FirstOrDefault(d => d.Id == id.Value);
+                if (driver != null)
                 {
                     parameters.Add(nameof(DriverDialog.DriverModel), new NewDriverRequest
                     {
-                        Id=driver.Id,
-                        DateOfBirth=driver.DateOfBirth,
-                        Email=driver.Email,
-                        FirstName=driver.FirstName,
-                        LastName=driver.LastName,
+                        Id = driver.Id,
+                        DateOfBirth = driver.DateOfBirth,
+                        Email = driver.Email,
+                        FirstName = driver.FirstName,
+                        LastName = driver.LastName,
                         Gender = driver.Gender,
-                        LicenseNo=driver.LicenseNo,
-                        Address=driver.Address,
-                        PhoneNumber=driver.PhoneNumber
+                        LicenseNo = driver.LicenseNo,
+                        Address = driver.Address,
+                        PhoneNumber = driver.PhoneNumber
                     });
                 }
             }
@@ -101,5 +102,18 @@ namespace TrafficManagementSystem.UI.Pages
                 }
             }
         }
+
+        //async Task DownloadDriverExcel(List<DriverDto> drivers)
+        //{
+        //    //await _documentManager.DownloadExcel(drivers);
+            
+        //    excelStream = service.CreateExcel();
+        //    await JS.SaveAs("Sample.xlsx", excelStream.ToArray());
+
+        //}
     }
 }
+
+
+
+    
