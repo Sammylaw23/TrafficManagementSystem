@@ -59,7 +59,7 @@ namespace TrafficManagementSystem.UI.Pages
                         Name = driver.Name,
                         Owner = driver.Owner,
                         PlateNumber = driver.PlateNumber,
-                        RegistrationDate = driver.RegistrationDate,
+                        RegistrationDate =  driver.RegistrationDate,
                         Brand = driver.Brand,
                         ChassisNo = driver.ChassisNo,
                         Colour = driver.Colour,

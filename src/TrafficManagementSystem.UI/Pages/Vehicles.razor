@@ -36,15 +36,15 @@
         <MudTh>Registration Date</MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd DataLabel="First Name">@context.Name</MudTd>
-        <MudTd DataLabel="Last Name">@context.Owner</MudTd>
-        <MudTd DataLabel="Email">@context.PlateNumber</MudTd>
-        <MudTd DataLabel="Phone Number">@context.Brand</MudTd>
-        <MudTd DataLabel="Date of Birth">@context.Model</MudTd>
-        <MudTd DataLabel="Gender">@context.ChassisNo</MudTd>
-        <MudTd DataLabel="License">@context.EngineNumber</MudTd>
-        <MudTd DataLabel="License">@context.Colour</MudTd>
-        <MudTd DataLabel="License">@context.RegistrationDate</MudTd>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudTd DataLabel="Owner">@context.Owner</MudTd>
+        <MudTd DataLabel="Plate Number">@context.PlateNumber</MudTd>
+        <MudTd DataLabel="Brand">@context.Brand</MudTd>
+        <MudTd DataLabel="Model">@context.Model</MudTd>
+        <MudTd DataLabel="Chassis No">@context.ChassisNo</MudTd>
+        <MudTd DataLabel="Engine Number">@context.EngineNumber</MudTd>
+        <MudTd DataLabel="Colour">@context.Colour</MudTd> 
+        <MudTd DataLabel="Registration Date">@context.RegistrationDate?.ToString("dd/MM/yyyy")</MudTd>
         <MudTd DataLabel="Actions" Style="text-align: right">
 
             <MudMenu Label="Actions" Variant="Variant.Filled" DisableElevation="true" EndIcon="@Icons.Filled.KeyboardArrowDown" IconColor="Color.Secondary" Direction="Direction.Left" OffsetX="true">
