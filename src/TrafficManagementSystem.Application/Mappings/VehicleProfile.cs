@@ -10,6 +10,8 @@ namespace TrafficManagementSystem.Application.Mappings
         {
             CreateMap<NewVehicleRequest, Vehicle>();
             CreateMap<Vehicle, VehicleDto>();
+            
+                //.ForMember(dst => dst.RegistrationDate, options => options.MapFrom(src => src.RegistrationDate.ToShortDateString))
         }
     }
 }
